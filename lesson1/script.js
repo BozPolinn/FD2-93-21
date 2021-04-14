@@ -13,6 +13,9 @@
 // + Должен быть контроль корректности вводимых пользователем данных (например, фамилия не должна быть пустой, возраст должен быть корректной цифрой и т.д.).
 // + Оператор alert в коде должен использоваться ровно один раз.
 
+var male = 'мужской';
+var female = 'женский';
+
 var nameClient;
 // проверка циклом while
 var nameType;
@@ -43,14 +46,14 @@ var pensio = pensioDetermine();
 
 function genderDetermine() {
     if (confirm('Вы являетесь мужчиной? Если да, нажмите ОК. Если нет, нажмите ОТМЕНА')) {
-        return 'мужской';
+        return male;
     } else {
-        return 'женский';
+        return female;
     }
 };
 
 function pensioDetermine() {
-    if (gender) {
+    if (gender === male) {
         if (age >= 60) {
             return 'Вы на пенсии';
         }
