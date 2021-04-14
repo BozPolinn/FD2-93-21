@@ -26,12 +26,12 @@ var patronymicNameClient = prompt('Введите Ваше отчество', '�
     while (nameType === false || patronymicNameClient.trim() === '') {
         nameType = Boolean(patronymicNameClient = prompt('Введите Ваше отчество', 'Иванович'));
     }
-// проверка циклом for
+
 var secondNameClient;
-    for (nameType = Boolean(secondNameClient = prompt('Введите Вашу фамилию', 'Иванов')); 
-         nameType === false || secondNameClient.trim() === '';
-         nameType = Boolean(secondNameClient = prompt('Введите Вашу фамилию', 'Иванов'))) {
-    }
+    do {
+        secondNameClient = prompt('Введите Вашу фамилию', 'Иванов');
+        nameType = Boolean(secondNameClient);
+    } while (nameType === false || secondNameClient.trim() === ''); 
 
 var age = parseInt(prompt('Введите Ваш возраст', '25'), 10);
  while (isNaN(age) || age < 6 || age > 80) {
@@ -50,15 +50,14 @@ function genderDetermine() {
 };
 
 function pensioDetermine() {
-    if (gender === true) {
+    if (gender) {
         if (age >= 60) {
             return 'Вы на пенсии';
         }
         else {
             return 'Нет, на вас еще пахать можно!';
         }
-    }
-    else {
+    } else {
         if (age >= 55) {
             return 'Вы на пенсии';
         }
