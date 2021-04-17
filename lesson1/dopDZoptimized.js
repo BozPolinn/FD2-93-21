@@ -1,13 +1,12 @@
 // объявляем переменную
 var user; 
 // запрашиваем строку у пользователя
-user = prompt('Введите строку', 'Ваша строка');
+do {
+    user = prompt('Введите строку', 'Ваша строка');
+} 
+while (user === '' || user.trim() === '');
 
 function cutEmpty(param) {
-    if (param === '') {
-        return ('Вы ввели пустую строку!');
-    }
-    else {
             // определение длины строки и сохранение значения в переменную
         var length = param.length;
             // определение пробелов
@@ -24,13 +23,7 @@ function cutEmpty(param) {
         for (var indexNumEnd = length - 1; param[indexNumEnd] === ' '; indexNumEnd--) {
         firstEnd = indexNumEnd;
         }
-        if (param.length === numStart) {
-            return ('Вы ввели пустую строку!');
-        }
-        else {
-            return ('&' + param.substring(numStart, firstEnd) + '&');
-        }
-    }
+        return (param.substring(numStart, firstEnd));
 }
 var result = cutEmpty(user);
-console.log(result);
+console.log('&' + result + '&');
