@@ -42,3 +42,8 @@ console.log(newString.length - (newString.length - lastEnd) - (last+1));
 // for (var count=10; count >= 0; count--) {
 //     console.log(count);
 // }
+
+
+var arrNew = [4, 7, 8, 9];
+// lifo - last in first out
+// fifo - first in first out
