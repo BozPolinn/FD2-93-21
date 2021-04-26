@@ -1,10 +1,10 @@
 var user = prompt('Введите строку на русском языке:');
 
 function isPalindrome(str) {
-    let newStr = str.toLowerCase().replace(/[^а-щыэ-я]/g, '').replace(/ё/g, 'e');
-    // console.log(newStr);
+    let newStr = str.toLowerCase().replace(/ё/g, 'е').replace(/[^а-щыэ-я]/g, '');
+    console.log(newStr);
     for (let i=0; i < Math.floor(0.5*newStr.length); i++) {
-        // console.log(newStr[i], newStr[newStr.length - i - 1]);
+        console.log(newStr[i], newStr[newStr.length - i - 1]);
         if (newStr[i] === newStr[newStr.length - i - 1]) {
             continue;
         }
