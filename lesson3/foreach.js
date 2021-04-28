@@ -2,17 +2,18 @@ let user = prompt('Введите строку').split('');
 
 function qweVowel(arr) {
     const letterArray = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я', 'А', 'Е', 'Ё', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я'];
-    let array = [];
+    let arrayCounter = 0;
+
     function isVowel(arr) {
         if (letterArray.includes(arr) === true) {
-            return array.push(arr);
+            return arrayCounter = arrayCounter + 1;
         }
         else {
-            return;
+            return arrayCounter;
         }
     }
     let result = user.forEach(isVowel);
-    return array.length;
+    return arrayCounter;
 }
 
 console.log(qweVowel(user));
