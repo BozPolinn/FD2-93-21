@@ -1,13 +1,16 @@
-let user = prompt('Введите строку').split('');
+let user = prompt('Введите строку');
 
-function isVowel(elem) {
+function findVowel(str) {
+    let strArr = str.split('');
     const letterArray = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я', 'А', 'Е', 'Ё', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я'];
-    return letterArray.includes(elem) === true;
-}
-let vowelSearch = user.filter (isVowel);
 
-isVowel(user);
-console.log(vowelSearch);
-console.log(vowelSearch.length);
+    function isVowel(elem) {
+        return letterArray.includes(elem) === true;
+    }
+    let vowelSearch = strArr.filter(isVowel);
+    return vowelSearch.length;
+}
+
+console.log(findVowel(user));
 
 // аеёиоуыэюя
