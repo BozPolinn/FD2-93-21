@@ -1,7 +1,7 @@
-let user = prompt('Введите строку').toLowerCase().split('');
+let user = prompt('Введите строку').split('');
 
 function isVowel(elem) {
-    let letterArray = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'];
+    const letterArray = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я', 'А', 'Е', 'Ё', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я'];
     return letterArray.includes(elem) === true;
 }
 let vowelSearch = user.filter (isVowel);
