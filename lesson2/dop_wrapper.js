@@ -15,9 +15,9 @@ function buildWrapper(tag) {
     }
 }
 
-// var wrapP = buildWrapper("P"); 
-// var wrapH1 = buildWrapper("H1"); 
-// console.log(wrapP('example&<">'));
-// console.log(wrapP("Однажды в студёную зимнюю пору",{lang:"ru"}));
-// console.log(wrapH1('example2'));
-// console.log(wrapH1("СТИХИ",{align:"center",title:"M&M's"}) );
+var wrapP = buildWrapper("P"); 
+var wrapH1 = buildWrapper("H1"); 
+console.log(wrapP('example&<">'));
+console.log(wrapP("Однажды в студёную зимнюю пору",{lang:"ru"}));
+console.log(wrapH1('example2'));
+console.log(wrapH1("СТИХИ",{align:"center",title:"M&M's"}) );
