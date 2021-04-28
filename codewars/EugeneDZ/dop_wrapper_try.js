@@ -65,23 +65,63 @@
 // console.log(subtract(5));
 // console.log(subtract(1)); 
 
-var calculator = createCalc(7);
-console.log(calculator.add(8));
-// 15
-console.log(calculator.subtract(13));
-// 2
 
-function createCalc(num) {
-    let sum = num;
-    let operations = {
-        add: function countSum(N) {
-            sum = sum + N;
-            return sum;
-        },
-        subtract: function subSum(N) {
-            sum = sum - N;
-            return sum;
+// calc
+// var calculator = createCalc(7);
+// console.log(calculator.add(8));
+// // 15
+// console.log(calculator.subtract(13));
+// // 2
+
+// function createCalc(num) {
+//     let sum = num;
+//     let operations = {
+//         add: function countSum(N) {
+//             sum = sum + N;
+//             return sum;
+//         },
+//         subtract: function subSum(N) {
+//             sum = sum - N;
+//             return sum;
+//         }
+//     };
+//     return operations;
+// }
+
+// function getFact(num) {
+//     let factNum = num;
+//     return function(last) {
+//         for (var i=1; i <= last; i++) {
+//             factNum = factNum * i;
+//             console.log(factNum);
+//         }
+//         return factNum;
+//     }
+// }
+// var factorial = getFact(1);
+// console.log(factorial(10));
+
+function createFact(n) {
+    var hash = {}
+    return function getNum(n) {
+        if (n in hash) {
+            return hash[n];
+        } else {;
+            var fact = 1;
+            for (var i = 1; i <= n; i++) {
+                fact = fact * i;
+                hash[i] = fact;
+            }
+            return fact;
         }
-    };
-    return operations;
+    }
 }
+
+var fact = createFact();
+console.log(1, fact(1));
+console.log(2, fact(2));
+console.log(3, fact(3));
+console.log(4, fact(4));
+console.log(7, fact(7));
+console.log(5, fact(5));
+console.log(6, fact(6));
