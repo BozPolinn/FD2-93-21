@@ -1,4 +1,4 @@
-let user = prompt('Введите строку').split('');
+let user = prompt('Введите строку').toLowerCase().split('');
 const letterArray = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'];
 
 let vowerNum = user.reduce(function(total, arr) {

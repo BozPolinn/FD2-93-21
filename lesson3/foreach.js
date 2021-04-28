@@ -1,4 +1,4 @@
-let user = prompt('Введите строку').split('');
+let user = prompt('Введите строку').toLowerCase().split('');
 
 function qweVowel(arr) {
     let letterArray = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'];
