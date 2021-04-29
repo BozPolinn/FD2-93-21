@@ -1,29 +1,24 @@
-//     Проверьте правильную работу кода серией вызовов этой функции с различными аргументами,
-//     обязательно с вариантом февраля в високосном и невисокосном году.
-
-let year = prompt('Введите год (числом)');
-let month = prompt('Введите месяц (числом от 1 до 12)');
-alert(getDaysNum(year, month));
-
+let year = Math.abs(parseInt(prompt('Введите год (числом)')));
+let month = parseInt(prompt('Введите месяц (числом от 1 до 12)'));
+if (isNaN(year) || isNaN(month)) {
+    alert('Введены некорректные значения. Попробуйте снова. Введите числа');
+}
+else {
+    alert(getDaysNum(year, month));
+}
 function getDaysNum(year, month) {
     const monthArr = {1:31, 2:28, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31};
-    let yearNum = Math.abs(parseInt(year));
-    let monthNum =Math.abs( parseInt(month));
-
-    if ( isNaN(yearNum) || isNaN(monthNum)) {
-        return 'Неверно! Введите числовое значение месяца и года';
-    }
     // високосный год
-    if (yearNum%4===0 && monthNum===2) {
-        if (yearNum%100===0 && yearNum%400!==0) {
-            return monthArr[monthNum];
+    if (year%4===0 && month===2) {
+        if (year%100===0 && year%400!==0) {
+            return monthArr[month];
         }
         else {
-            return monthArr[monthNum] + 1;
+            return monthArr[month] + 1;
         }
     } else {
         // невисикосный год
-        return monthArr[monthNum];
+        return monthArr[month];
     }
 }
 console.log('feb 1994' + ' : ' + getDaysNum(1994, 2));
