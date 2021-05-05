@@ -27,87 +27,61 @@ function deepCopy(value) {
 //          ok
 var h1={ a:5, b:{b1:6,b2:7}, c:[33,22], d:null, e:undefined, f:Number.NaN };
 var h2=deepCopy(h1);
-console.log('тест на Object');
-console.log(h1===h2);
-console.log(h1.a===h2.a);
-console.log(h1.b===h2.b);
-console.log(h1.b.b1===h2.b.b1);
-console.log(h1.c===h2.c);
-console.log(h1.c[0]===h2.c[0]);
-console.log(h1.d===h2.d);
-console.log(h1.e===h2.e);
-console.log(isNaN(h2.f));
-console.log(h2.c instanceof Array);
 
-// + h1===h2 будет false
-// + h1.a===h2.a будет true
-// + h1.b===h2.b будет false
-// + h1.b.b1===h2.b.b1 будет true
-// + h1.c===h2.c будет false
-// + h1.c[0]===h2.c[0] будет true
-// + h1.d===h2.d будет true
-// + h1.e===h2.e будет true
-// + isNaN(h2.f) будет true
-// + h2.c instanceof Array будет true
+function test(name, obj, compare) {
+    let result = deepCopy(obj);
+    console.log( name, compare(obj, result) ? '✔️' : '❌')
+}
+
+console.log('тест на Object');
+test('h1!==h2', h1, (obj, result) => (obj !== result));
+test('h1.a===h2.a', h1, (obj, result) => (obj.a === result.a));
+test('h1.b!==h2.b', h1, (obj, result) => (obj.b !== result.b));
+test('h1.b.b1===h2.b.b1', h1, (obj, result) => (obj.b.b1 === result.b.b1));
+test('h1.c!==h2.c', h1, (obj, result) => (obj.c !== result.c));
+test('h1.c[0]===h2.c[0]', h1, (obj, result) => (obj.c[0] === result.c[0]));
+test('h1.d===h2.d', h1, (obj, result) => (obj.d === result.d));
+test('h1.e===h2.e', h1, (obj, result) => (obj.e === result.e));
+test('isNaN(h2.f)', h1, (obj, result) => (isNaN(result.f)));
+test('h2.c instanceof Array', h1, (obj, result) => (result.c instanceof Array));
 
 //          ok
 var a1=[ 5, {b1:6,b2:7}, [33,22], null, undefined, Number.NaN];
 var a2=deepCopy(a1);
 
 console.log('тест на Array');
-console.log(a1===a2);
-console.log(typeof(a2)===typeof(a1));
-console.log(a1[0]===a2[0]);
-console.log(a1[1]===a2[1]);
-console.log(a1[1].b1===a2[1].b1);
-console.log(a1[2]===a2[2]);
-console.log(a1[2][0]===a2[2][0]);
-console.log(a1[3]===a2[3]);
-console.log(a1[4]===a2[4]);
-console.log(isNaN(a2[5]));
-console.log(a2[2] instanceof Array);
-
-// + a1===a2 будет false
-// + typeof(a2)===typeof(a1) будет true
-// + a1[0]===a2[0] будет true
-// + a1[1]===a2[1] будет false
-// + a1[1].b1===a2[1].b1 будет true
-// + a1[2]===a2[2] будет false
-// + a1[2][0]===a2[2][0] будет true
-// + a1[3]===a2[3] будет true
-// + a1[4]===a2[4] будет true
-// + isNaN(a2[5]) будет true
-// + a2[2] instanceof Array будет true
+test('a1!==a2', a1, (obj, result) => (obj !== result));
+test('typeof(a2)===typeof(a1)', a1, (obj, result) => (typeof obj === typeof result));
+test('a1[0]===a2[0]', a1, (obj, result) => (obj[0] === result[0]));
+test('a1[1]!==a2[1]', a1, (obj, result) => (obj[1] !== result[1]));
+test('a1[1].b1===a2[1].b1', a1, (obj, result) => (obj[1].b1 === result[1].b1));
+test('a1[2]===a2[2]', a1, (obj, result) => (obj[2] !== result[2]));
+test('a1[2][0]===a2[2][0]', a1, (obj, result) => (obj[2][0] === result[2][0]));
+test('a1[3]===a2[3]', a1, (obj, result) => (obj[3] === result[3]));
+test('a1[4]===a2[4]', a1, (obj, result) => (obj[4] === result[4]));
+test('isNaN(a2[5])', a1, (obj, result) => (isNaN(result[5])));
+test('a2[2] instanceof Array', a1, (obj, result) => (result[2] instanceof Array));
 
 //          ok
 var v1="sss";
 var v2=deepCopy(v1);
 
 console.log('тест на String');
-console.log(typeof(v2)===typeof(v1));
-console.log(v1===v2);
-
-// + typeof(v2)===typeof(v1) будет true
-// + v1===v2 будет true
+test('typeof(v2)===typeof(v1)', v1, (obj, result) => (typeof obj === typeof result));
+test('v1===v2', v1, (obj, result) => (obj === result));
 
 //          ok
 var z1=null;
 var z2=deepCopy(z1);
 
 console.log('тест на Null');
-console.log(typeof(z2)===typeof(z1));
-console.log(z1===z2);
-
-// + typeof(z2)===typeof(z1) будет true
-// + z1===z2 будет true
+test('typeof(z2)===typeof(z1)', z1, (obj, result) => (typeof obj === typeof result));
+test('z1===z2', z1, (obj, result) => (obj === result));
 
 //          ok
 var n1=Number.NaN;
 var n2=deepCopy('тест на NaN');
 
 console.log(n2);
-console.log(typeof(n2)===typeof(n1));
-console.log(isNaN(n2));
-
-// typeof(n2)===typeof(n1) будет true
-// isNaN(n2) будет true
+test('typeof(n2)===typeof(n1)', n2, (obj, result) => (typeof obj === typeof result));
+test('isNaN(n2)', n2, (obj, result) => (isNaN(result)));
