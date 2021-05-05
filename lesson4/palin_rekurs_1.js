@@ -10,18 +10,11 @@ function isPalindrom(user) {
     console.log(newUser);
 
     function recPalindrom(val) {
-        if (val[0] === val[val.length-1]) {
+        if (val.length <= 1) {
+            return true;
+        } else if (val[0] === val[val.length-1]) {
             let newVal = val.substring(1,(val.length-1));
-            if (newVal[0] === newVal[newVal.length - 1]) {
-                if (newVal[0] === newVal[newVal.length - 1] && newVal.length <=1) {
-                    return true;
-                }
-                else {
-                    return recPalindrom(newVal);
-                }
-            } else {
-                return false;
-            }
+            return recPalindrom(newVal);
         } else {
             return false;
         }
