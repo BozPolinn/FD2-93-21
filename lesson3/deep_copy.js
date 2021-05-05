@@ -2,9 +2,6 @@ function deepCopy(value) {
     if (Array.isArray(value)) {
         let arr = [];
         for (let i = 0; i < value.length; i++) {
-            // if (Array.isArray(value[i])) {
-            //     arr.push(deepCopy(value[i]));
-            // } else
             if (typeof(value[i]) === 'object' && value[i] !== null) {
                 arr.push(deepCopy(value[i]));
             } else {
@@ -16,9 +13,6 @@ function deepCopy(value) {
     else if (typeof(value) === 'object' && value !== null) {
         let obj = {};
         for (let k in value) {
-            // if (Array.isArray(value[k])) {
-            //     obj[k] = deepCopy(value[k]);
-            // } else
             if (typeof(value[k]) === 'object' && value[k] !== null) {
                 obj[k] = deepCopy(value[k]);
             } else {
