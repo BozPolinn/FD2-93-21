@@ -1,23 +1,15 @@
 "use strict";
 
-let HashStorageFunc = function (key, value) {
+let HashStorageFunc = function () {
     let self = this;
     let unitStorage = {};
-    self.key = key;
-    self.value = value;
 
     self.addValue = function (key, value) {
-        if (!(key in unitStorage)) {
-            unitStorage[key] = value;
-            return 'Значение добавлено в объект';
-        } else {
-            return 'Указанное значение добавлено в объект ранее';
-        }
+        unitStorage[key] = value;
     }
 
     self.getValue = function(key) {
         return unitStorage[key];
-        // return (key in unitStorage) ? unitStorage[key] : undefined;
     }
 
     self.deleteValue = function (key) {
@@ -39,12 +31,56 @@ let HashStorageFunc = function (key, value) {
 }
 
 const DrinkStorage = new HashStorageFunc();
-console.log(DrinkStorage);
-console.log(DrinkStorage.addValue(prompt('Введите новый ключ'), prompt('Укажите значение')));
-console.log(DrinkStorage.addValue(prompt('Введите новый ключ'), prompt('Укажите значение')));
 
-console.log(DrinkStorage.getValue(prompt('Введите ключ для проверки')));
-console.log(DrinkStorage.getValue(prompt('Введите ключ для проверки')));
+const addUnit = document.querySelector('#addIt');
+addUnit.addEventListener('click', clickAdd);
+function clickAdd() {
+    let name = prompt('Введите название напитка');
+    let isAlk = confirm('Является ли напиток алкогольным?');
+    let contains = prompt('Укажите рецепт напитка');
+    let value = {alcoholity: isAlk, recipe: contains};
+    DrinkStorage.addValue(name, value);
+}
 
-console.log(DrinkStorage.getKeys());
-console.log(DrinkStorage.deleteValue(prompt('Введите ключ для удаления')));
+const getUnit = document.querySelector('#info');
+getUnit.addEventListener('click', getInfo);
+function getInfo() {
+    let control = prompt('Введите название напитка для проверки наличия в базе');
+    let fact = DrinkStorage.getValue(control);
+
+    function alkDetermine(isAlk) {
+        if (isAlk) {
+            return 'алкогольный';
+        } else {
+            return 'безалкогольный';
+        }
+    }
+    if (fact === undefined) {
+        alert('Нет информации о напитке');
+    } else {
+        alert('Название: ' + control + '\n' + 'Категория: ' + alkDetermine(fact.alcoholity) + '\n' + 'Состав: ' + fact.recipe);
+    }
+}
+
+const delUnit = document.querySelector('#delete');
+delUnit.addEventListener('click', deleteInfo);
+function deleteInfo() {
+    let unit = prompt('Информацию о каком напитке Вы хотели бы удалить?');
+    let result = DrinkStorage.deleteValue(unit);
+    if (result) {
+        alert('Информация удалена!');
+    } else {
+        alert('Информация о напитке в базе отсутствует!');
+    }
+}
+
+const unitList = document.querySelector('#list');
+unitList.addEventListener('click', showKeys);
+function showKeys() {
+    let result = DrinkStorage.getKeys();
+    if (result.length === 0) {
+        alert('В хранилище нет значений');
+    } else {
+        alert(result);
+    }
+}
