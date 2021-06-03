@@ -1,5 +1,4 @@
 let form = document.forms['devForm'];
-
 // gets label for current input to indicate input to be correct
 function getElementLabel(elem) {
     let elemID = elem.id;
@@ -10,9 +9,8 @@ function getElementLabel(elem) {
         }
     }
 }
-
-// show user input is ok. need to be minimized
-function inputIsOk(elem, typeElem) {
+// returns label for current input
+function getElementTypeLabel(elem, typeElem) {
     let label;
     if (typeElem === 'submit') {
         return;
@@ -22,35 +20,23 @@ function inputIsOk(elem, typeElem) {
     } else {
         label = getElementLabel(elem);
     }
+    return label;
+}
+// shows user input is ok. need to be minimized
+function inputIsOk(elem, typeElem) {
+    let label = getElementTypeLabel(elem, typeElem);
     elem.style.color = '#6b705c';
     elem.style.fontWeight = '700';
 }
-// show user input is failed
+// shows user input is failed
 function inputIsFailed(elem, typeElem) {
-    let label;
-    if (typeElem === 'submit') {
-        return;
-    } else if (typeElem !== 'radio' && typeElem !== 'submit') {
-        label = getElementLabel(elem);
-    } else if (typeElem === 'radio') {
-        let parent = elem.parentNode;
-        label = getElementLabel(parent);
-    }
+    let label = getElementTypeLabel(elem, typeElem);
     label.style.color = 'red';
     label.style.fontWeight = '700';
 }
 // returns initial element state
-function getInitState(elem) {
-    let typeInit = getElemType(elem);
-    let label;
-    if (typeInit === 'submit') {
-        return;
-    } else if (typeInit !== 'radio') {
-        label = getElementLabel(elem);
-    } else if (typeInit === 'radio') {
-        let parent = elem.parentNode;
-        label = getElementLabel(parent);
-    }
+function getInitState(elem, typeElem) {
+    let label = getElementTypeLabel(elem, typeElem);
     label.style.color = 'black';
     label.style.fontWeight = '400';
 }
@@ -158,28 +144,28 @@ function validateFields(field) {
     if (classField === 'developers') {
         let result = validDevelopers(field);
         if (!result) {
-            text = 'allowed symbols: "-", "_", ".", ",", " ", 0-9, A-z, А-я';
+            text = 'expected: "-", "_", ".", ",", " ", 0-9, A-z, А-я';
         }
         return text;
     }
     else if (classField === 'siteName') {
         let result = validSiteName(field);
         if (!result) {
-            text = 'allowed symbols: "-", "_", ".", " ", 0-9, A-z, А-я';
+            text = 'expected: "-", "_", ".", " ", 0-9, A-z, А-я';
         }
         return text;
     }
     else if (classField === 'siteURL') {
         let result = validSiteURL(field);
         if (!result) {
-            text = 'invalid URL entered';
+            text = 'invalid URL';
         }
         return text;
     }
     else if (classField === 'siteEmail') {
         let result = validSiteEmail(field);
         if (!result) {
-            text = 'invalid email entered';
+            text = 'invalid email';
         }
         return text;
     }
@@ -233,7 +219,7 @@ function validUnitElement() {
                     getEmptyErrorLabel(unit, textVal);
                 } else {
                     workWithParent(unit);
-                    getInitState(unit);
+                    getInitState(unit, type);
                 }
             } else {
                 getEmptyErrorLabel(unit, textEmp);
@@ -249,7 +235,7 @@ function trySubmit() {
     form.addEventListener('submit', ifAllElemsCorrect, true);
     function ifAllElemsCorrect(e) {
         let arr = [];
-        let arrVal = [];
+        // let arrVal = [];
         for (let i = 0; i < form.length; i++) {
             let elemForm = form[i];
             let type = getElemType(elemForm);
@@ -259,7 +245,8 @@ function trySubmit() {
                     let textVal = validateFields(elemForm);
                     if (textVal !== 'ok') {
                         getEmptyErrorLabel(elemForm, textVal);
-                        arrVal.push(elemForm.name);
+                        // arrVal.push(elemForm.name);
+                        arr.push(elemForm.name);
                     }
                 } else if (textEmp !== 'null') {
                     getEmptyErrorLabel(elemForm, textEmp);
@@ -271,12 +258,6 @@ function trySubmit() {
             let name = arr[0];
             setFocus(name);
             e.preventDefault();
-
-        } else if (arrVal[0] !== undefined) {
-            let name = arrVal[0];
-            setFocus(name);
-            e.preventDefault();
-
         }
         function setFocus(name){
             let focusedElem = document.getElementsByName(name)[0];
@@ -292,9 +273,7 @@ function getEmptyErrorLabel(element, text) {
     infoBlock.classList.add('error');
     infoBlock.style.color = 'red';
     infoBlock.style.fontSize = '0.7' + 'rem';
-
     let info = document.createTextNode(text);
-
     infoBlock.appendChild(info);
 
     let parent = element.parentElement;
