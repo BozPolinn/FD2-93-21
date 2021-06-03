@@ -205,15 +205,6 @@ function validateFields(field) {
     }
 }
 
-// function blurElement() {
-//     form.addEventListener('blur', blurResearch, true);
-//     function blurResearch(e) {
-//         let elem = e.target;
-//         defineElement(elem);
-//     }
-// }
-// blurElement();
-
 function validUnitElement() {
     form.addEventListener('blur', focusChange, true);
     function focusChange(e) {
