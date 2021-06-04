@@ -52,7 +52,7 @@ function getElemType(elem) {
     }
     return type;
 }
-// define if element is empty
+// defines if element is empty
 function defineElement(elem) {
     // <input> type = text || number || date or <textarea>
     function evaluateTextTypes(elem) {
@@ -190,46 +190,68 @@ function validateFields(field) {
         return regMail.test(elem.value);
     }
 }
-
-function validUnitElement() {
+// validates text fields on blur
+function validTextFieldOnBlur() {
     form.addEventListener('blur', focusChange, true);
+
     function focusChange(e) {
         let elem = e.target;
-        validUnit(elem);
+        let typeEl = getElemType(elem);
+        if (typeEl === 'radio' || typeEl === 'checkbox' || typeEl === 'select') {
+            return;
+        } else {
+            validUnit(elem);
+        }
     }
 
-    function validUnit(unit) {
-        function workWithParent(unit) {
-            let parent = unit.parentElement;
-            for (let i = 0; i < parent.childNodes.length; i++) {
-                let deletedLabel = parent.childNodes[i];
-                if (deletedLabel.className === 'error') {
-                    parent.removeChild(deletedLabel);
-                    parent.style.paddingBottom = '15' + 'px';
-                }
+}
+validTextFieldOnBlur();
+
+function validUnit(unit) {
+    function deleteParentNote(unit) {
+        let parent = unit.parentElement;
+        for (let i = 0; i < parent.childNodes.length; i++) {
+            let deletedLabel = parent.childNodes[i];
+            if (deletedLabel.className === 'error') {
+                parent.removeChild(deletedLabel);
+                parent.style.paddingBottom = '15' + 'px';
             }
-        }
-        let type = getElemType(unit);
-        if (type !== 'submit') {
-            let textEmp = defineElement(unit);
-            if (textEmp === 'null') {
-                let textVal = validateFields(unit);
-                if (textVal !== 'ok') {
-                    workWithParent(unit);
-                    getEmptyErrorLabel(unit, textVal);
-                } else {
-                    workWithParent(unit);
-                    getInitState(unit, type);
-                }
-            } else {
-                getEmptyErrorLabel(unit, textEmp);
-            }
-        } else {
-            return;
         }
     }
+    let type = getElemType(unit);
+    if (type !== 'submit') {
+        let textEmp = defineElement(unit);
+        deleteParentNote(unit);
+        if (textEmp === 'null') {
+            let textVal = validateFields(unit);
+            if (textVal !== 'ok') {
+                inputIsFailed(unit, type);
+                getEmptyErrorLabel(unit, textVal);
+            } else {
+                getInitState(unit, type);
+            }
+        } else {
+            getEmptyErrorLabel(unit, textEmp);
+        }
+    } else {
+        return;
+    }
 }
-validUnitElement();
+
+function validElemsByChangeEvent() {
+    form.addEventListener('change', ifElemIsChanged, false);
+
+    function ifElemIsChanged(e) {
+        let elem = e.target;
+        let typeEl = getElemType(elem);
+        if (typeEl === 'radio' || typeEl === 'checkbox' || typeEl === 'select') {
+            validUnit(elem);
+        }
+        return;
+    }
+}
+
+validElemsByChangeEvent()
 
 function trySubmit() {
     form.addEventListener('submit', ifAllElemsCorrect, true);
@@ -286,3 +308,5 @@ function getEmptyErrorLabel(element, text) {
     parent.style.paddingBottom = '0' + 'px';
     parent.appendChild(infoBlock);
 }
+
+// пропал цвет лейбы из пустого в ошибочный либо из правильного состояния
