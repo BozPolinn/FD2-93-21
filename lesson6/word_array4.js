@@ -1,114 +1,110 @@
-// const inputArray = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК",
-//     "ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"];
-//
-// function compareUnits(input, output) {
-//     let counter = 0;
-//     for (let j = 0; j < input.length; j++) {
-//         if (input[j] !== output[j]) {
-//             counter = counter + 1;
-//         }
-//     }
-//     return counter;
-// }
-//
-// function nextStep(input, array, output) {
-//     let variants = [];
-//     for (let i = 0; i < array.length; i++) {
-//         if (compareUnits(input, array[i]) === 1) {
-//             variants.push(array[i]);
-//         }
-//     }
-//     if (variants[0] === undefined) {
-//         return null;
-//     }
-//     console.log(variants);
-//
-//     for (let i = 0; i < variants.length; i++) {
-//         if (variants[i] === output) {
-//             return [variants[i], output];
-//         } else {
-//             let newVariants = [];
-//             for (let j = 0; j < variants.length; j++) {
-//                 if (variants[i] !== variants[j]) {
-//
-//                 }
-//             }
-//             nextStep(variants[i], newVariants, output)
-//         }
-//     }
-//
-//
-//
-// }
-//
-// console.log(nextStep('ЛИСА', inputArray, 'ЛОСЬ'));
+const inputArray = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК",
+    "ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"];
 
-const graph = {
-    vertices: [1, 2, 3, 4, 5, 6],
-    edges: [[1, 6],[6, 5],[5, 4],[1, 3],[1, 2],[2, 3],[3, 4],[2, 4],[6, 3]]
-};
-
-function implementAlgoritm(graph, input, output) {
-    function getNeighbours(graph, input) {
-        let neighbourArr = [];
-        for (let i = 0; i < graph.edges.length; i++) {
-            if (graph.edges[i].includes(input)) {
-                for (let j = 0; j < graph.edges[i].length; j++) {
-                    if (graph.edges[i][j] !== input) {
-                        neighbourArr.push(graph.edges[i][j]);
+function getWayFromInputToOutput(array, input, output) {
+    // adds elements if they are not in array
+    function addInputOutputToArray(array, input, output) {
+        let newArr = [];
+        Array.prototype.push.apply(newArr, array);
+        if (!array.includes(input)) {
+            newArr.push(input);
+        }
+        if (!array.includes(output)) {
+            newArr.push(output);
+        }
+        return newArr;
+    }
+    // new Array with input and output
+    let graph = addInputOutputToArray(array, input, output);
+    // gets word pairs which differ in 1 symbol
+    function getAllWordDistance(array) {
+        let systemOfWordsRelations = {
+            vertices : graph,
+            edges : getElementOfArray(array)
+        }
+        //compares units and returns pairs with minimal difference
+        function compareUnits(input, output) {
+            let counter = 0;
+            for (let j = 0; j < input.length; j++) {
+                if (input[j] !== output[j]) {
+                    counter = counter + 1;
+                }
+            }
+            return counter;
+        }
+        // pushes these elements to edges
+        function getElementOfArray(array) {
+            let storage = [];
+            for (let i = 0; i < array.length; i++) {
+                for (let j = (i+1); j < array.length; j++) {
+                    if (compareUnits(array[i], array[j]) === 1) {
+                        storage.push([array[i], array[j]]);
                     }
                 }
             }
-
+            return storage;
         }
-        return neighbourArr;
+        return systemOfWordsRelations;
     }
+    // creates new graph
+    let newGraph = getAllWordDistance(graph, input, output);
 
-    let marks = {};
-    for (let i = 0; i < graph.vertices.length; i++) {
-        let unit = graph.vertices[i];
-        if (unit !== input) {
-            marks[unit] = Number.MAX_VALUE;
-        } else {
-            marks[unit] = 0;
-        }
-    }
-    console.log(marks);
-
-    function visitNeighbours(input, graph) {
-        let visited = [];
-
-        function getNeighboursMarks(input) {
-            let neighbours = getNeighbours(graph, input);
-            console.log(input, neighbours);
-            for (let i = 0; i < neighbours.length; i++) {
-                visited.push(neighbours[i]);
-                let elem = neighbours[i];
-                marks[elem] = marks[input] + 1;
-
-                if (marks[elem] > (marks[input] + 1)) {
-                    marks[elem] = marks[input] + 1;
+    function implementAlgoritm(graph, input, output) {
+        function getNeighbours(graph, input) {
+            let neighbourArr = [];
+            for (let i = 0; i < graph.edges.length; i++) {
+                if (graph.edges[i].includes(input)) {
+                    for (let j = 0; j < graph.edges[i].length; j++) {
+                        if (graph.edges[i][j] !== input) {
+                            neighbourArr.push(graph.edges[i][j]);
+                        }
+                    }
                 }
-                console.log(visited);
-                console.log(elem);
-                console.log(marks);
-                // getNeighNeighbours(elem);
-            }
 
-            // function getNeighNeighbours(neigh) {
-            //     if (!neighbours.includes(neigh)) {
-            //         getNeighboursMarks(neigh);
-            //     } else {
-            //         return
-            //     }
-            //     console.log(visited);
-            //     console.log(marks);
-            // }
+            }
+            return neighbourArr;
         }
 
-        getNeighboursMarks(input);
-    }
+        let marks = {};
+        for (let i = 0; i < graph.vertices.length; i++) {
+            let unit = graph.vertices[i];
+            if (unit !== input) {
+                marks[unit] = Number.MAX_VALUE;
+            } else {
+                marks[unit] = 0;
+            }
+        }
 
-    visitNeighbours(input, graph);
+        let way = {};
+        for (let i = 0; i < graph.vertices.length; i++) {
+            way[graph.vertices[i]] = [];
+        }
+
+        let visited = [];
+        let queue = [input];
+        while (queue.length > 0) {
+            const current = queue.shift();
+            const neighbours = getNeighbours(graph, current).filter(x => !visited.includes(x));
+
+            for (let i = 0; i < neighbours.length; i++) {
+                let neighbour = neighbours[i];
+                if (marks[neighbour] > (marks[current] + 1)) {
+                    marks[neighbour] = (marks[current] + 1);
+                    way[neighbour] = [...way[current], current];
+                }
+            }
+            Array.prototype.push.apply(queue, neighbours);
+            visited.push(current);
+        }
+        let resultWay = [];
+        for (let i = 0; i < way[output].length; i++) {
+            resultWay.push(way[output][i]);
+        }
+        resultWay.push(output);
+        return resultWay;
+    }
+    return implementAlgoritm(newGraph, input, output);
 }
-console.log(implementAlgoritm(graph, 1, 5));
+
+console.log(getWayFromInputToOutput(inputArray, 'ЛИСА', 'ЛОСЬ'));
+console.log(getWayFromInputToOutput(inputArray, 'МУХА', 'СЛОН'));

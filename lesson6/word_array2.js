@@ -37,6 +37,5 @@ function getNeighbour(input, array) {
 }
 console.log(getNeighbour(input1, array1));
 
-let fju= {};
-console.log(fju);
+
 

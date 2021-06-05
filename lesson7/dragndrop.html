@@ -3,8 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            padding-top: 15px;
+            padding-left: 30px;
+        }
+        .container {
+            width: 500px;
+            height: 300px;
+            outline: 1px solid red;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
 </head>
 <body>
+    <div id="container" class="container">
+        <img draggable="true" id="cat1" class="cat" src="cat.jpg">
+        <img draggable="true" id="cat2" class="cat" src="cat.jpg">
+        <img draggable="true" id="cat3" class="cat" src="cat.jpg">
+        <img draggable="true" id="cat4" class="cat" src="cat.jpg">
+    </div>
+
   <script src="dragndrop.js"></script>
 </body>
 </html>
