@@ -41,10 +41,6 @@ function dragAndDrop() {
 
             let {x : catX, y : catY} = cat.getBoundingClientRect();
             document.addEventListener('mousemove', onMouseMove, false);
-            cat.addEventListener('dragstart', onDragStart, false);
-            function onDragStart(e) {
-                return true;
-            }
 
             let parent = cat.parentElement;
             parent.appendChild(cat);
@@ -59,7 +55,6 @@ function dragAndDrop() {
             // mouse up
             document.addEventListener('mouseup', onMouseUp, false);
             function onMouseUp(e) {
-                cat.removeEventListener('dragstart', onDragStart, false);
                 document.removeEventListener('mousemove', onMouseMove, false);
                 document.removeEventListener('mouseup', onMouseUp, false);
             }

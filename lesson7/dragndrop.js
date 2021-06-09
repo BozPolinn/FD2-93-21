@@ -37,28 +37,57 @@ getCatCoordinates()
 
 function dragndrop() {
     const container = document.getElementById('container');
-    container.addEventListener('mousedown', onMouseDown);
+    // container.addEventListener('mousedown', stopDefAction, false);
+    // function stopDefAction(e) {
+    //     e.preventDefault();
+    // }
 
+    container.addEventListener('mousedown', onMouseDown);
     function onMouseDown(e) {
         const cat = e.target;
         if (cat.draggable) {
             const { x, y, width, height } = container.getBoundingClientRect();
-            console.log(cat)
-
             const {x : catX, y : catY, width : catWidth, height : catHeight } = cat.getBoundingClientRect();
+            // cat coords in container
             const catXCoord = catX - x;
             const catYCoord = catY - y;
+            // offset to all sides of block
             const maxMoveLeft = -catXCoord;
             const maxMoveRight = width - catWidth - catXCoord;
             const maxMoveTop = -catYCoord;
             const maxMoveBottom = height - catHeight - catYCoord;
-            console.log(maxMoveLeft, maxMoveRight, maxMoveTop, maxMoveBottom);
+            // console.log(maxMoveLeft, maxMoveRight, maxMoveTop, maxMoveBottom);
+            console.log('its down')
+        }
+        cat.addEventListener('mouseEnter', IfMouseEnter);
+        function IfMouseEnter() {
+            if (cat.draggable) {
+                console.log('meow')
+            }
         }
     }
 
+    container.addEventListener('mousemove', onMouseMove);
+    function onMouseMove(e) {
+        console.log('moves')
+
+        let mouseX = (e.pageX - 30) + 'px';;
+        let mouseY = (e.pageY - 15) + 'px';
+        console.log(mouseX, mouseY)
+
+        const cat = e.target;
 
 
+
+    }
+
+    container.addEventListener('mouseup', onMouseUp);
+    function onMouseUp(e) {
+        console.log('its up')
+
+    }
 
 
 }
+
 dragndrop()

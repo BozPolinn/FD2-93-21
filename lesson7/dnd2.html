@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .container {
+      margin: 30px;
+    }
+    .range {
+      width: 300px;
+      height: 15px;
+      background-color: lightgray;
+      border-radius: 5px;
+    }
+    .dragger {
+      width: 15px;
+      height: 30px;
+      background-color: blue;
+      border-radius: 5px;
+      position: relative;
+      top: -22px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="range"></div>
+    <div class="dragger" draggable="true"></div>
+  </div>
+  <script src="dnd2.js"></script>
+</body>
+</html>
