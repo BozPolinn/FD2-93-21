@@ -27,30 +27,80 @@ function ifPageIsReady(e) {
 }
 
 function dragAndDrop() {
+    const container = document.querySelector('.container');
+    // container parameters
+    const { width : contWidth, height : contHeight } = container.getBoundingClientRect();
+    const contLeft = getElementPos(container).left;
+    const contTop = getElementPos(container).top;
+
     // mousedown
     document.addEventListener('mousedown', onMouseDown, false)
     function onMouseDown(e) {
         const pX = e.pageX;
         const pY = e.pageY;
         let cat = e.target;
+        let zInd = 1;
 
         if (cat.hasAttribute('drag')) {
             cat.ondragstart = function() {
                 return false;
             };
+            cat.style.position = 'absolute';
+            cat.style.zIndex = (zInd + 5) + 'px';
+            // cat parameters
+            let catX= getElementPos(cat).left;
+            let catY= getElementPos(cat).top;
+            const catWidth = cat.offsetWidth;
+            const catHeight = cat.offsetHeight;
+            const maxMoveRight = contWidth - catWidth - (catX - contLeft);
+            const maxMoveLeft = catX - contLeft;
+            const maxMoveBottom = contHeight - catHeight - (catY - contTop);
+            const maxMoveTop = catY - contTop;
 
-            let {x : catX, y : catY} = cat.getBoundingClientRect();
             document.addEventListener('mousemove', onMouseMove, false);
 
-            let parent = cat.parentElement;
-            parent.appendChild(cat);
             // mouse move
             function onMouseMove(e) {
+                // difference between initial and new mouse state
+                // move right (2 cases) and left (next 2 cases)
                 let dX = e.pageX - pX;
+                if (dX >= 0) {
+                    if (dX > maxMoveRight) {
+                        dX = maxMoveRight;
+                    } else if (dX <= maxMoveRight) {
+                        dX = e.pageX - pX;
+                    }
+                } else if (dX < 0) {
+                    if (dX < -maxMoveLeft) {
+                        dX = -maxMoveLeft;
+                    } else if (dX>= -maxMoveLeft) {
+                        dX = e.pageX - pX;
+                    }
+                }
+
                 let dY = e.pageY - pY;
+                if (dY >= 0) {
+                    if (dY > maxMoveBottom) {
+                        dY = maxMoveBottom;
+                    } else if (dY <= maxMoveBottom) {
+                        dY = e.pageY - pY;
+                    }
+                } else if (dY < 0) {
+                    if (dY > -maxMoveTop) {
+                        dY = e.pageY - pY;
+                    } else if (dY <= -maxMoveTop) {
+                        dY = -maxMoveTop;
+                    }
+                }
+                console.log(maxMoveLeft)
+                console.log(dX)
+
 
                 cat.style.left = (catX + dX) + 'px';
                 cat.style.top = (catY + dY) + 'px';
+
+                let parent = cat.parentElement;
+                parent.appendChild(cat);
             }
             // mouse up
             document.addEventListener('mouseup', onMouseUp, false);
