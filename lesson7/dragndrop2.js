@@ -13,9 +13,10 @@ window.addEventListener('load', ifPageIsReady, false);
 function ifPageIsReady(e) {
     let catArr = document.getElementsByClassName('cat');
     for (let i = (catArr.length - 1); i < catArr.length; i--) {
-        const unit = catArr[i]
-        let left = getElementPos(unit).left;
-        let top = getElementPos(unit).top;
+        const unit = catArr[i];
+        let coords = getElementPos(unit);
+        let left = coords.left;
+        let top = coords.top;
 
         unit.style.left = left + 'px';
         unit.style.top = top + 'px';
@@ -39,14 +40,14 @@ function dragAndDrop() {
         const pX = e.pageX;
         const pY = e.pageY;
         let cat = e.target;
-        let zInd = 1;
 
         if (cat.hasAttribute('drag')) {
-            cat.ondragstart = function() {
+            cat.addEventListener('dragstart', onDragStart, false);
+            function onDragStart(e) {
+                e.preventDefault();
                 return false;
-            };
-            cat.style.position = 'absolute';
-            cat.style.zIndex = (zInd + 5) + 'px';
+            }
+
             // cat parameters
             let catX= getElementPos(cat).left;
             let catY= getElementPos(cat).top;
@@ -92,9 +93,6 @@ function dragAndDrop() {
                         dY = -maxMoveTop;
                     }
                 }
-                console.log(maxMoveLeft)
-                console.log(dX)
-
 
                 cat.style.left = (catX + dX) + 'px';
                 cat.style.top = (catY + dY) + 'px';
@@ -105,6 +103,8 @@ function dragAndDrop() {
             // mouse up
             document.addEventListener('mouseup', onMouseUp, false);
             function onMouseUp(e) {
+                cat.removeEventListener('dragstart', onDragStart, false);
+
                 document.removeEventListener('mousemove', onMouseMove, false);
                 document.removeEventListener('mouseup', onMouseUp, false);
             }
