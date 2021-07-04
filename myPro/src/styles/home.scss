@@ -1,0 +1,33 @@
+@import "variables";
+.container {
+  .description {
+    font-size: $fontSizeHeader;
+    padding: 30px 30px 0 30px;
+    .rules {
+      .secondHead {
+        font-size: $fontSizeHeader;
+        margin: 15px 0 0;
+      }
+    }
+  }
+}
+
+.textPlusPicture {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: $fontSizeHeaderTwo;
+  p {
+    margin: 0;
+  }
+}
+
+.mainHero {
+  img {
+    width: 300px;
+    height: 275px;
+    position: relative;
+    top: -40px;
+  }
+}

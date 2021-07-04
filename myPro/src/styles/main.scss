@@ -1,0 +1,64 @@
+@import "variables";
+@import "home";
+//@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+//@import '~@fortawesome/fontawesome-free/scss/regular';
+
+// common
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $grey;
+  font-size: $fontSizeBody;
+  font-family: $fontFam;
+  letter-spacing: 0.15rem;
+  color: $dirtypink;
+}
+
+.head {
+  font-size: $fontSizeBig;
+  font-weight: $fontXl;
+  text-align: center;
+  margin: 30px 0 15px 0;
+}
+
+.container {
+  font-family: $fontFam;
+  font-size: $fontSizeBig;
+  font-weight: $fontL;
+  font-variant: small-caps;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.navigation {
+  width: 200px;
+  padding: 30px 50px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  justify-content: flex-start;
+  a {
+    outline: 5px solid $dark;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    background-color: $pink;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 7px;
+    margin: 23px 0 23px;
+  }
+  a, a:visited {
+    text-decoration: none;
+    color: $dirtypink;
+  }
+  a:hover {
+    color: $violet;
+    transition: 0.5s;
+  }
+}
