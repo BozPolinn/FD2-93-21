@@ -1,0 +1,135 @@
+@import "variables";
+
+.description.play {
+  flex: 1;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.counter, .levelInfo {
+  width: 100%;
+  margin: 0 0 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.counterRow, .levelRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 50%;
+}
+
+.counterRow:first-child {
+  color: $pink;
+}
+
+.counterRow:nth-child(2) {
+  color: $bluegreen;
+}
+
+.counterRow:last-child {
+  position: relative;
+}
+
+#wrongAns, #rightAns, #levelNumber, #questionNumber {
+  width: 50px;
+  font-weight: $fontXl;
+}
+
+#general {
+  width: 50px;
+}
+
+.qweField {
+  position: relative;
+  width: 100%;
+  margin: 30px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.qwePlusLogo {
+  width: 100%;
+}
+
+.fa-question-circle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  font-size: $fontSizeMaxiBig;
+  color: $yellow;
+}
+.hintCont {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  width: 37px;
+  height: 37px;
+}
+
+.hintText {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  width: 300px;
+  font-size: $fontSizeHeaderTwo;
+  background-color: $yellow;
+  color: $grey;
+  padding: 10px 7px;
+}
+.hintCont:hover {
+  .hintText {
+    display: block;
+    transition: 0.5s;
+  }
+}
+
+  .question {
+    margin: 0 auto 30px;
+  }
+
+  .buttonRow {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .answer {
+    width: 50%;
+    padding: 10px 15px;
+    margin: 15px;
+    font-size: $fontSizeHeader;
+    font-family: $fontFam;
+    font-weight: $fontL;
+    color: $grey;
+    background-color: $dirtypink;
+    border: none;
+    outline: none;
+  }
+  .answer:hover {
+    cursor: pointer;
+    background-color: $pink;
+    transition: 0.3s;
+    color: $dirtypink;
+  }
+
+  .select {
+    background-color: $green;
+    transition: 0.3s;
+  }

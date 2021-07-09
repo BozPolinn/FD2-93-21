@@ -58,7 +58,7 @@ export const level1 = [
             {text: 'синатор', state: false},
             {text: 'аудитор', state: true},
             {text: 'назол адванс', state: false},
-            {text: 'адваграф', state: false}
+            {text: 'адвантан', state: false}
         ],
         help: 'Пациенту нужен не совсем адвокат :)'
     },
@@ -642,7 +642,3 @@ export const level7 = [
         help: 'может, не такой уж это и грибок :)'
     }
 ];
-
-
-
-

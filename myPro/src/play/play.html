@@ -1,9 +1,54 @@
 <div class="container">
   <nav class="navigation">
-<!--    <a href="#/">на главную</a>-->
-<!--    <a href="#/game">играть</a>-->
-<!--    <a href="#/settings">настройки</a>-->
-<!--    <a href="#/progress">достижения</a>-->
-<!--    <a href="#/share">поделиться</a>-->
+    <a href="#/">На главную</a>
+    <a href="#/" id="resetBtn">Новая игра</a>
   </nav>
+  <div class="description play">
+    <canvas id="animation" width="800" height="150"></canvas>
+    <div class="qweField">
+      <div class="levelInfo">
+        <div class="levelRow">
+          <div>Уровень</div>
+          <div id="levelNumber"></div>
+        </div>
+        <div class="levelRow">
+          <div>Вопрос</div>
+          <div id="questionNumber"></div>
+        </div>
+      </div>
+      <div class="counter">
+        <div class="counterRow">
+          <div>Неверно</div>
+          <div id="wrongAns"></div>
+        </div>
+        <div class="counterRow">
+          <div>Верно</div>
+          <div id="rightAns"></div>
+        </div>
+        <div class="counterRow">
+          <div>Рейтинг</div>
+          <div id="general"></div>
+        </div>
+        <div class="counterRow">
+          <div class="hintCont">
+            <div class="hintText"></div>
+          </div>
+          <i class="fas fa-question-circle"></i>
+        </div>
+      </div>
+      <div class="qwePlusLogo">
+        <div class="question" id="question"></div>
+      </div>
+
+      <div class="buttonRow">
+        <button class="answer" id="ans1"></button>
+        <button class="answer" id="ans2"></button>
+      </div>
+      <div class="buttonRow">
+        <button class="answer" id="ans3"></button>
+        <button class="answer" id="ans4"></button>
+      </div>
+    </div>
+  </div>
 </div>
+
