@@ -25,14 +25,12 @@ export default class Game {
     win() {
         this.state = this.getState();
         //    save generalscore
-
     }
 
     fail() {
         this.state = this.getState();
         // нужен пересчет generalscore
         //    save generalscore
-        //    сброс настроек после окончания игры
     }
 
     updateScore() {
@@ -57,13 +55,10 @@ export default class Game {
     reset() {
         this.state = 'start';
         this.currentLevelIndex = 0;
-        this.levels[this.currentLevelIndex].rightCount = 0;
-        this.levels[this.currentLevelIndex].wrongCount = -1;
         this.generalScore = 0;
         this.previousLevelScore = 0;
-        this.levels[this.currentLevelIndex].currentQuestion = 0;
-        this.levels[this.currentLevelIndex].levelscore = 0;
+        for(let i = 0; i < this.levels.length; i++) {
+            this.levels[i].reset();
+        }
     }
-
-    // нужно обработать ситуацию, когда человек завершил игру и начинает заново
 }

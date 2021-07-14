@@ -45,4 +45,11 @@ export default class Level {
     getCurrentQuestion() {
         return this.questions[this.currentQuestion];
     }
+
+    reset() {
+        this.levelscore = 0;
+        this.currentQuestion = 0;
+        this.rightCount = 0;
+        this.wrongCount = -1;
+    }
 }

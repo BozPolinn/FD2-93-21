@@ -4,6 +4,7 @@ import GameController from "./gameController";
 import winTemplate from "./../play/win.html";
 import failTemplate from "./../play/fail.html";
 import * as levels from "./levelContent";
+import canvas from "../play/canvas";
 
 export default class GameView extends View {
     constructor(application) {
@@ -13,6 +14,7 @@ export default class GameView extends View {
     // const timer = setTimeout(, 30000)
     mount() {
         super.mount();
+
         this.levelNumber = this.application.root.querySelector('#levelNumber');
         this.questionNumber = this.application.root.querySelector('#questionNumber');
         this.rightCount = this.application.root.querySelector('#rightAns');
