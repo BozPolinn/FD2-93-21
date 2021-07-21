@@ -1,13 +1,17 @@
 export default class Sprite {
-    constructor(images) {
-        this.images = images.map(getImage);
-
-        function getImage(imagePath) {
+    constructor(array) {
+        this.array = array.map( (x) => {
             const img = new Image(225, 150);
-            img.src = imagePath;
+            img.src = x;
             return img;
-        }
+        });
     }
 
+    get length() {
+        return this.array.length;
+    }
 
+    get = (index) => {
+        return this.array[index];
+    };
 }

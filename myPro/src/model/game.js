@@ -1,5 +1,6 @@
 import Level from "./level";
 import * as levels from "../content/levelContent";
+const request = 5;
 
 export default class Game {
     constructor() {
@@ -8,13 +9,13 @@ export default class Game {
         const fail = this.fail.bind(this);
 
         this.levels = [
-            new Level(levels.level1, 5, nextLevel, fail),
-            new Level(levels.level2, 5, nextLevel, fail),
-            new Level(levels.level3, 5, nextLevel, fail),
-            new Level(levels.level4, 5, nextLevel, fail),
-            new Level(levels.level5, 5, nextLevel, fail),
-            new Level(levels.level6, 5, nextLevel, fail),
-            new Level(levels.level7, 5, win, fail)
+            new Level(levels.level1, request, nextLevel, fail),
+            new Level(levels.level2, request, nextLevel, fail),
+            new Level(levels.level3, request, nextLevel, fail),
+            new Level(levels.level4, request, nextLevel, fail),
+            new Level(levels.level5, request, nextLevel, fail),
+            new Level(levels.level6, request, nextLevel, fail),
+            new Level(levels.level7, request, win, fail)
         ];
         this.currentLevelIndex = 0;
         this.previousLevelScore = 0;
@@ -29,7 +30,6 @@ export default class Game {
 
     fail() {
         this.state = this.getState();
-        // нужен пересчет generalscore
         //    save generalscore
     }
 
@@ -53,7 +53,10 @@ export default class Game {
     }
 
     reset() {
-        this.state = 'start';
+        // не стартует новое состояниe
+        // this.levels[this.currentLevelIndex].stateLevel = 'start'
+        // this.state = 'start';
+        this.state = this.getState()
         this.currentLevelIndex = 0;
         this.generalScore = 0;
         this.previousLevelScore = 0;

@@ -3,16 +3,37 @@ import View from "../core/view";
 import GameController from "./gameController";
 import winTemplate from "./../play/win.html";
 import failTemplate from "./../play/fail.html";
+import Rescale from "./../animation/rescaler";
+import AnimatedCanvas from "../animation/animatedCanvas";
 import * as levels from "./levelContent";
+
+const request = 5;
 
 export default class GameView extends View {
     constructor(application) {
         super(application, levelTemplate);
+        this.timerID = undefined;
     }
 
     // const timer = setTimeout(, 30000)
     mount() {
         super.mount();
+
+        // canvas found and got context
+        this.canvas = document.getElementById('animation');
+        const rescaledContext = new Rescale(this.canvas);
+        this.context = rescaledContext.rescale();
+        this.request = 5;
+
+        const levelIndex = this.application.state.game.currentLevelIndex;
+        this.right = this.application.state.game.levels[levelIndex].rightCount;
+        this.wrong = this.application.state.game.levels[levelIndex].wrongCount;
+
+        this.animationContent = new AnimatedCanvas(this.application, this.canvas, this.context, this.request,
+            this.right, this.wrong);
+        this.animationContent.mount();
+        this.animationContent.update();
+
 
         this.levelNumber = this.application.root.querySelector('#levelNumber');
         this.questionNumber = this.application.root.querySelector('#questionNumber');
@@ -37,6 +58,7 @@ export default class GameView extends View {
 
     update() {
         super.update();
+        this.animationContent.update();
 
         const currentLevel = this.application.state.game.getCurrentLevel();
         const levelIndex = this.application.state.game.currentLevelIndex;
@@ -45,13 +67,10 @@ export default class GameView extends View {
         const state = this.application.state.game.state;
 
         if (state === 'fail') {
-            this.application.root.innerHTML = failTemplate;
-            document.getElementById('generalCount').innerHTML = gameScore;
-            this.application.state.game.reset();
+            console.log(state)
+            this.timerID = setTimeout(this.failed.bind(this), 3000);
         } else if (state === 'win') {
-            this.application.root.innerHTML = winTemplate;
-            document.getElementById('generalCount').innerHTML = gameScore;
-            this.application.state.game.reset();
+            this.timerID = setTimeout(this.won.bind(this), 3000);
         }
 
         this.levelNumber.innerHTML = levelIndex + 1;
@@ -67,6 +86,21 @@ export default class GameView extends View {
         this.ans3.innerHTML = currentQue.answers[2].text;
         this.ans4.innerHTML = currentQue.answers[3].text;
         this.hidden.innerHTML = currentQue.help;
+    }
+
+    won() {
+        const gameScore = this.application.state.game.updateScore();
+        this.application.root.innerHTML = winTemplate;
+        document.getElementById('generalCount').innerHTML = gameScore;
+        this.resetGame();
+    //    вызывать reset в контроллере -> модели
+    }
+
+    failed() {
+        const gameScore = this.application.state.game.updateScore();
+        this.application.root.innerHTML = failTemplate;
+        document.getElementById('generalCount').innerHTML = gameScore;
+        this.resetGame();
     }
 
     resetGame = () => {
@@ -90,6 +124,8 @@ export default class GameView extends View {
     };
 
     unmount() {
+        this.animationContent.unmount();
+
         this.ans1.removeEventListener('click', this.answer1, false);
         this.ans2.removeEventListener('click', this.answer2, false);
         this.ans3.removeEventListener('click', this.answer3, false);

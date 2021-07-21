@@ -13,13 +13,13 @@ export default class Level {
 
     right() {
         this.rightCount += 1;
-        this.levelscore += 1;
+        this.levelscore = this.rightCount - (this.wrongCount + 1);
         this.checkState();
     }
 
     wrong() {
         this.wrongCount += 1;
-        this.levelscore -= 1;
+        this.levelscore = this.rightCount - (this.wrongCount + 1);
         this.checkState();
     }
 
@@ -47,6 +47,7 @@ export default class Level {
     }
 
     reset() {
+        this.stateLevel = 'start';
         this.levelscore = 0;
         this.currentQuestion = 0;
         this.rightCount = 0;
