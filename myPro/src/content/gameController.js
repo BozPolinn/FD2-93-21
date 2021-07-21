@@ -18,4 +18,16 @@ export default class GameController extends Controller {
             level.wrong();
         }
     }
+
+    updateWin() {
+        window.location.hash = "#/win";
+    }
+
+    updateFail() {
+        window.location.hash = "#/fail";
+    }
+
+    callReset() {
+        this.application.state.game.reset();
+    }
 }

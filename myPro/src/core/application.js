@@ -3,6 +3,8 @@ import ApplicationState from "../model/applicationState";
 import View from "./view";
 import SettingsView from "../settings/settingsView";
 import GameView from "../content/gameView";
+import FailView from "../content/failView";
+import WinView from "../content/winView";
 
 export default class Application {
     constructor(root) {
@@ -15,7 +17,9 @@ export default class Application {
             "#/game": new GameView(this),
             "#/settings": new SettingsView(this),
             "#/progress": undefined,
-            "#/share": undefined
+            "#/share": undefined,
+            "#/fail": new FailView(this),
+            "#/win": new WinView(this)
         };
     }
 

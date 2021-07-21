@@ -26,15 +26,12 @@ export default class AnimatedCanvas extends View {
 
     loader = () => {
         this.state = this.application.state.game.getState();
-        // console.log(this.state)
 
         this.background.createBackground();
         this.hero.draw();
         this.zombie.draw();
         if (this.state === 'fail') {
             this.failState.createFail();
-            // console.log(this.state)
-        //    после проигрыша в новой игре сохраняется состояние fail
         } else if (this.state === 'win') {
             this.winState.createWin();
             console.log('win')

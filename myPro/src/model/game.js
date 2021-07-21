@@ -25,15 +25,13 @@ export default class Game {
 
     win() {
         this.state = this.getState();
-        //    save generalscore
     }
 
     fail() {
         this.state = this.getState();
-        //    save generalscore
     }
 
-    updateScore() {
+    getScore() {
         this.generalScore = this.levels[this.currentLevelIndex].levelscore + this.previousLevelScore;
         return this.generalScore;
     }
@@ -53,15 +51,12 @@ export default class Game {
     }
 
     reset() {
-        // не стартует новое состояниe
-        // this.levels[this.currentLevelIndex].stateLevel = 'start'
-        // this.state = 'start';
-        this.state = this.getState()
         this.currentLevelIndex = 0;
         this.generalScore = 0;
         this.previousLevelScore = 0;
         for(let i = 0; i < this.levels.length; i++) {
             this.levels[i].reset();
         }
+        this.state = this.getState();
     }
 }
