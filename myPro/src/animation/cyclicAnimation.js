@@ -1,6 +1,6 @@
 export default class CyclicAnimation {
-    constructor(context, sprite, width, height, center) {
-        this.context = context;
+    constructor(renderer, sprite, width, height, center) {
+        this.renderer = renderer;
         this.sprite = sprite;
         this.cyclicIndex = 0;
         this.width = width;
@@ -13,7 +13,7 @@ export default class CyclicAnimation {
     }
 
     draw(x, y) {
-        this.context.drawImage(this.sprite.get(this.cyclicIndex), x - this.center * this.width, y, this.width, this.height);
+        this.renderer.context.drawImage(this.sprite.get(this.cyclicIndex), x - this.center * this.width, y, this.width, this.height);
     }
 
     stop() {

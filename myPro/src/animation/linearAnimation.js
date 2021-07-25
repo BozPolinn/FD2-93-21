@@ -1,6 +1,6 @@
 export default class LinearAnimation {
-    constructor(context, sprite, width, height, center) {
-        this.context = context;
+    constructor(renderer, sprite, width, height, center) {
+        this.renderer = renderer;
         this.sprite = sprite;
         this.linearIndex = 0;
         this.width = width;
@@ -13,7 +13,7 @@ export default class LinearAnimation {
     }
 
     draw(x, y) {
-        this.context.drawImage(this.sprite.get(this.linearIndex), x - this.center * this.width, y, this.width, this.height);
+        this.renderer.context.drawImage(this.sprite.get(this.linearIndex), x - this.center * this.width, y, this.width, this.height);
     }
 
     stop() {

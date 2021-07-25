@@ -12,7 +12,7 @@ export default class SettingsView extends View {
     };
 
     mount() {
-        super.mount();
+        super.mount()
         document.querySelector('#soundCheck')
             .addEventListener('click', this.changeSound, false);
     }

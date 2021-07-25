@@ -1,0 +1,69 @@
+@import "variables.scss";
+@media all and (max-width: 800px) {
+  #animation {
+    margin-top: 15px;
+  }
+
+  .levelInfo, .counter {
+    font-size: $fontSizeStart;
+  }
+
+  .question {
+    font-size: $fontSizeBody;
+  }
+
+  .answer {
+    height: 50px;
+    margin: 8px;
+  }
+
+  .qwePlusLogo {
+    margin: 30px auto;
+  }
+
+  .fa-question-circle {
+    font-size: 3rem;
+  }
+
+  .hintCont {
+    width: 40px;
+    height: 40px;
+  }
+
+  .answer {
+    font-size: $fontSizeBody;
+  }
+}
+
+@media all and (max-width: 470px) {
+  .counter {
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+
+  .counterRow {
+    margin-bottom: 15px;
+  }
+
+  .qwePlusLogo {
+    margin-bottom: 15px;
+  }
+
+  .hintText {
+    font-size: $fontSizeStart;
+    width: 200px;
+  }
+
+  .answer {
+    padding: 2px;
+    font-size: $fontSizeMini;
+    margin: 2px;
+  }
+}
+
+@media all and (max-width: 360px) {
+  .answer {
+    font-size: $fontSizeMini;
+    margin: 2px;
+  }
+}

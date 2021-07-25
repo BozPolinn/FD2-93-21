@@ -50,4 +50,6 @@ export default class Application {
             window.location.hash = this.defaultRoute;
         }
     }
+
+    // addListeners removeListeners
 }

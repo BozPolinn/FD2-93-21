@@ -6,6 +6,7 @@ import failTemplate from "./../play/fail.html";
 import Rescale from "./../animation/rescaler";
 import AnimatedCanvas from "../animation/animatedCanvas";
 import * as levels from "./levelContent";
+import Renderer from "../animation/renderer";
 
 const request = 5;
 
@@ -17,17 +18,19 @@ export default class GameView extends View {
 
     mount() {
         super.mount();
+        const canvas = document.getElementById('animation');
+        this.renderer = new Renderer(canvas);
 
-        this.canvas = document.getElementById('animation');
-        const rescaledContext = new Rescale(this.canvas);
-        this.context = rescaledContext.rescale();
+        window.addEventListener('load', this.renderer.resize, false);
+        window.addEventListener('resize', this.renderer.resize, false);
+
         this.request = 5;
 
         const levelIndex = this.application.state.game.currentLevelIndex;
         this.right = this.application.state.game.levels[levelIndex].rightCount;
         this.wrong = this.application.state.game.levels[levelIndex].wrongCount;
 
-        this.animationContent = new AnimatedCanvas(this.application, this.canvas, this.context, this.request,
+        this.animationContent = new AnimatedCanvas(this.application, this.renderer, this.request,
             this.right, this.wrong);
         this.animationContent.mount();
         this.animationContent.update();
@@ -38,6 +41,7 @@ export default class GameView extends View {
         this.wrongCount = this.application.root.querySelector('#wrongAns');
         this.generalCount = this.application.root.querySelector('#general');
         this.resetButton = this.application.root.querySelector('#resetBtn');
+        this.hintCont = document.getElementById('hintCont');
 
         this.que = this.application.root.querySelector('#question');
         this.ans1 = this.application.root.querySelector('#ans1');
@@ -51,7 +55,21 @@ export default class GameView extends View {
         this.ans3.addEventListener('click', this.answer3, false);
         this.ans4.addEventListener('click', this.answer4, false);
         this.resetButton.addEventListener('click', this.resetGame, false);
+
+        this.hintCont.addEventListener('click', this.showHint.bind(this), false);
     }
+
+    showHint() {
+        document.querySelector('.hintText').style.display = 'block';
+        this.hintCont.addEventListener('click', this.hideHint.bind(this), false);
+    }
+
+    hideHint() {
+        this.hintCont.removeEventListener('click', this.showHint.bind(this), false);
+        document.querySelector('.hintText').style.display = 'none';
+        this.hintCont.addEventListener('click', this.showHint.bind(this), false);
+    }
+
 
     update() {
         super.update();
@@ -123,10 +141,13 @@ export default class GameView extends View {
     };
 
     removeListeners() {
-        this.ans1.removeEventListener('click', this.answer1, false);
+        window.removeEventListener('load', this.renderer.resize, false);
+        window.removeEventListener('resize', this.renderer.resize, false);        this.ans1.removeEventListener('click', this.answer1, false);
         this.ans2.removeEventListener('click', this.answer2, false);
         this.ans3.removeEventListener('click', this.answer3, false);
         this.ans4.removeEventListener('click', this.answer4, false);
+        this.hintCont.removeEventListener('click', this.showHint.bind(this), false);
+        this.hintCont.removeEventListener('click', this.hideHint.bind(this), false);
     }
 
     unmount() {

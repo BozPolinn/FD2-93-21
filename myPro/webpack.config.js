@@ -11,6 +11,7 @@ module.exports = {
         compress: true,
         hot: true,
         port: 8080,
+        host: '0.0.0.0'
     },
     // input
     entry: {

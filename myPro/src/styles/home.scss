@@ -3,6 +3,7 @@
   .description {
     font-size: $fontSizeHeader;
     padding: 0 30px 0 0;
+    width: 100%;
     .rules {
       .secondHead {
         font-size: $fontSizeHeader;
@@ -23,6 +24,10 @@
   }
 }
 
+.textPlusPicture:first-child {
+  margin-bottom: 30px;
+}
+
 .textPlusPicture:last-child {
   position: relative;
   top: -50px;
@@ -33,6 +38,8 @@
     width: 300px;
     height: 275px;
     position: relative;
-    top: -60px;
+    top: -30px;
   }
 }
+
+@import "homeMedia.scss";

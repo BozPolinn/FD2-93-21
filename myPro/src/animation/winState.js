@@ -1,17 +1,16 @@
 export default class WinState {
-    constructor(canvas, context) {
-        this.canvas = canvas;
-        this.context = context;
+    constructor(renderer) {
+        this.renderer = renderer;
     }
 
     createWin() {
-        this.context.fillStyle = 'rgba(247,19,255,0.4)';
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.renderer.context.fillStyle = 'rgba(247,19,255,0.4)';
+        this.renderer.context.fillRect(0, 0, this.renderer.canvas.width, this.renderer.canvas.height);
 
-        this.context.fillStyle = '#3a0ca3';
-        this.context.fillText('win', this.canvas.width * 0.5 / 1.5, this.canvas.height * 0.5 / 1.5);
-        this.context.font = '58px bold Arial';
-        this.context.textAlign = 'center';
-        this.context.textBaseline = 'middle';
+        this.renderer.context.fillStyle = '#3a0ca3';
+        this.renderer.context.fillText('win', this.renderer.canvas.width * 0.5 / 1.5, this.renderer.canvas.height * 0.5 / 1.5);
+        this.renderer.context.font = '58px bold Arial';
+        this.renderer.context.textAlign = 'center';
+        this.renderer.context.textBaseline = 'middle';
     }
 }

@@ -1,0 +1,72 @@
+@import "variables.scss";
+
+@media all and (max-width: 1160px) {
+  .container .description .rules .secondHead {
+    margin: 20px 0;
+  }
+
+  .mainHero img {
+    width: 250px;
+    height: 230px;
+    top: -20px;
+  }
+
+  .textPlusPicture:last-child {
+    top: -15px;
+  }
+}
+
+@media all and (max-width: 1050px) {
+  .mainHero img {
+    width: 200px;
+    height: 185px;
+    top: -15px;
+  }
+
+  .textPlusPicture:first-child {
+    margin-bottom: 20px;
+  }
+
+  .textPlusPicture:last-child {
+    top: 0;
+  }
+}
+
+@media all and (max-width: 880px) {
+  .mainHero img {
+    width: 150px;
+    height: 137px;
+    top: -15px;
+  }
+}
+
+@media all and (max-width: 470px) {
+  .textPlusPicture {
+    flex-direction: column-reverse;
+    position: relative;
+  }
+
+  .mainHero img {
+    width: 115px;
+    height: 105px;
+  }
+
+  .textPlusPicture:first-child {
+    .mainHero {
+      overflow: hidden;
+      img {
+        position: absolute;
+        top: -75px;
+        right: 0;
+      }
+    }
+  }
+
+  .textPlusPicture:last-child {
+    flex-direction: column-reverse;
+    .mainHero img {
+      left: 100px;
+       top: 0px;
+    }
+  }
+}

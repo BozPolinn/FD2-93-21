@@ -7,20 +7,19 @@ import WinState from "./winState";
 
 const stepsNumber = 7;
 
-export default class AnimatedCanvas extends View {
-    constructor(application, canvas, context, request) {
-        super(application, canvas);
-        this.canvas = canvas;
-        this.context = context;
+export default class AnimatedCanvas {
+    constructor(application, renderer, request) {
+        this.application = application;
+        this.renderer = renderer;
         this.request = request;
         this.levelIndex = this.application.state.game.currentLevelIndex;
         this.right = this.application.state.game.levels[this.levelIndex].rightCount;
         this.wrong = this.application.state.game.levels[this.levelIndex].wrongCount;
-        this.background = new Background(this.canvas, this.context, stepsNumber);
-        this.hero = new Hero(this.canvas, this.context, this.request);
-        this.zombie = new Zombie(this.canvas, this.context, this.request);
-        this.failState = new FailState(this.canvas, this.context);
-        this.winState = new WinState(this.canvas, this.context)
+        this.background = new Background(this.renderer, stepsNumber);
+        this.hero = new Hero(this.renderer, this.request);
+        this.zombie = new Zombie(this.renderer, this.request);
+        this.failState = new FailState(this.renderer);
+        this.winState = new WinState(this.renderer);
         this.frameID = undefined;
     }
 

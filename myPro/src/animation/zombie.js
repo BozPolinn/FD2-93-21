@@ -5,13 +5,10 @@ import zombieAttackSprite from "./zombie/spriteZombieAtack";
 import zombieDeadSprite from "./zombie/spriteDeadZombie";
 
 export default class Zombie {
-    constructor(canvas, context, request, right, wrong) {
-        this.canvas = canvas;
-        this.context = context;
+    constructor(renderer, request, right, wrong) {
+        this.renderer = renderer;
 
         this.request = request;
-        this.animationXStep = this.canvas.width / ((this.request + 2) * 1.5);
-        this.animationY = this.canvas.height * 0.25 / 1.5;
 
         this.zIdleWidth = 68;
         this.zIdleHeight = 75;
@@ -25,9 +22,9 @@ export default class Zombie {
         this.zDeadHeight = 80;
         this.zDeadCenter = 0.5;
 
-        this.idleAnimation = new CyclicAnimation(this.context, new zombieIdleSprite(), this.zIdleWidth, this.zIdleHeight, this.zIdleCenter);
-        this.attackAnimation = new CyclicAnimation(this.context, new zombieAttackSprite(), this.attackWidth, this.attackHeight, this.attackCenter);
-        this.deadAnimation = new LinearAnimation(this.context, new zombieDeadSprite(), this.zDeadWidth, this.zDeadHeight, this.zDeadCenter);
+        this.idleAnimation = new CyclicAnimation(this.renderer, new zombieIdleSprite(), this.zIdleWidth, this.zIdleHeight, this.zIdleCenter);
+        this.attackAnimation = new CyclicAnimation(this.renderer, new zombieAttackSprite(), this.attackWidth, this.attackHeight, this.attackCenter);
+        this.deadAnimation = new LinearAnimation(this.renderer, new zombieDeadSprite(), this.zDeadWidth, this.zDeadHeight, this.zDeadCenter);
         this.act();
     }
 
@@ -59,6 +56,8 @@ export default class Zombie {
     }
 
     draw() {
-        this.currentAnimation.draw(this.animationXStep +  this.animationXStep * this.wrong, this.animationY);
+        this.animationXStep = (this.renderer.canvas.width / this.renderer.rescaler.ratio) / (this.request + 2);
+        this.animationY = this.renderer.canvas.height / this.renderer.rescaler.ratio - 75;
+        this.currentAnimation.draw(this.animationXStep + this.animationXStep * this.wrong, this.animationY);
     }
 }

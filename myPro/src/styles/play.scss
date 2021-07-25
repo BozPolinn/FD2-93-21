@@ -1,7 +1,17 @@
 @import "variables";
 
 #animation {
-  margin-top: 50px;
+  margin-top: 30px;
+}
+
+.qweField {
+  position: relative;
+  width: 100%;
+  margin: 30px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .description.play {
@@ -16,7 +26,7 @@
 
 .counter, .levelInfo {
   width: 100%;
-  margin: 0 0 30px;
+  margin: 0 0 15px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -52,18 +62,15 @@
   width: 50px;
 }
 
-.qweField {
-  position: relative;
-  width: 100%;
-  margin: 30px 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
 .qwePlusLogo {
   width: 100%;
+  height: 60px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .fa-question-circle {
@@ -95,15 +102,9 @@
   color: $grey;
   padding: 10px 7px;
 }
-.hintCont:hover {
-  .hintText {
-    display: block;
-    transition: 0.5s;
-  }
-}
 
   .question {
-    margin: 0 auto 30px;
+    margin: 0 auto;
   }
 
   .buttonRow {
@@ -137,3 +138,5 @@
     background-color: $green;
     transition: 0.3s;
   }
+
+@import "playMedia.scss";

@@ -9,7 +9,7 @@ export default class WinView extends View {
 
     mount() {
         super.mount();
-        document.getElementById('generalCount').innerHTML = this.application.state.game.getScore() + 1;
+        document.getElementById('generalCount').innerHTML = this.application.state.game.getScore();
         this.resetGame();
     }
 

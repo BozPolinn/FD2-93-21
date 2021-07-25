@@ -4,39 +4,41 @@ const img = new Image(225, 150);
 img.src = back;
 
 export default class Background {
-    constructor(canvas, context, stepsNumber) {
-        this.context = context;
-        this.canvas = canvas;
+    constructor(renderer, stepsNumber) {
+        this.renderer = renderer;
         this.stepsNumber = stepsNumber;
     }
 
     createBackground() {
-        const element = this.canvas;
-        function createBackLine(canvas, context, stepsNumber) {
-            const startCoordinateX = element.width / stepsNumber / 1.5;
-            const startCoordinateY = element.height * 0.75 / 1.5;
+        const width = this.renderer.canvas.width / this.renderer.rescaler.ratio;
+        const height = this.renderer.canvas.height / this.renderer.rescaler.ratio;
+        const scale = height / 150;
 
-            for (let i = 0; i < stepsNumber; i++) {
-                context.strokeStyle = '#a100f2';
-                context.lineWidth = 5;
-                context.beginPath();
-                context.moveTo((i * startCoordinateX), startCoordinateY);
-                context.lineTo(((i + 1) * startCoordinateX), startCoordinateY);
-                context.stroke();
+        this.renderer.context.save();
+        this.renderer.context.scale(scale, scale);
+        this.renderer.context.fillStyle = this.renderer.context.createPattern(img, 'repeat-x');
+        this.renderer.context.fillRect(0, 0, width / scale, height / scale);
+        this.renderer.context.restore();
 
-                if (i === stepsNumber - 1) {
-                    continue;
-                }
+        const startCoordinateX = width / this.stepsNumber;
+        const startCoordinateY = height;
 
-                context.fillStyle = '#a100f2';
-                context.beginPath();
-                context.arc(((i + 1) * startCoordinateX), startCoordinateY, 5, 0, Math.PI*2, false)
-                context.fill();
+        for (let i = 0; i < this.stepsNumber; i++) {
+            this.renderer.context.strokeStyle = '#a100f2';
+            this.renderer.context.lineWidth = 5;
+            this.renderer.context.beginPath();
+            this.renderer.context.moveTo((i * startCoordinateX), startCoordinateY);
+            this.renderer.context.lineTo(((i + 1) * startCoordinateX), startCoordinateY);
+            this.renderer.context.stroke();
+
+            if (i === this.stepsNumber - 1) {
+                continue;
             }
-        }
 
-        this.context.fillStyle = this.context.createPattern(img, 'repeat-x');
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        createBackLine(this.canvas, this.context, this.stepsNumber)
+            this.renderer.context.fillStyle = '#a100f2';
+            this.renderer.context.beginPath();
+            this.renderer.context.arc(((i + 1) * startCoordinateX), startCoordinateY, 5, 0, Math.PI*2, false)
+            this.renderer.context.fill();
+        }
     }
 }
