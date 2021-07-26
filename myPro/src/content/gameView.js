@@ -1,9 +1,6 @@
 import levelTemplate from "../play/play.html";
 import View from "../core/view";
 import GameController from "./gameController";
-import winTemplate from "./../play/win.html";
-import failTemplate from "./../play/fail.html";
-import Rescale from "./../animation/rescaler";
 import AnimatedCanvas from "../animation/animatedCanvas";
 import * as levels from "./levelContent";
 import Renderer from "../animation/renderer";
@@ -39,6 +36,8 @@ export default class GameView extends View {
         this.wrongCount = this.application.root.querySelector('#wrongAns');
         this.generalCount = this.application.root.querySelector('#general');
         this.resetButton = this.application.root.querySelector('#resetBtn');
+        this.navBtn = document.getElementById('confirmGo');
+
         this.hintCont = document.getElementById('hintCont');
 
         this.que = this.application.root.querySelector('#question');
@@ -48,11 +47,13 @@ export default class GameView extends View {
         this.ans4 = this.application.root.querySelector('#ans4');
         this.hidden = this.application.root.querySelector('.hintText');
 
+
         this.ans1.addEventListener('click', this.answer1, false);
         this.ans2.addEventListener('click', this.answer2, false);
         this.ans3.addEventListener('click', this.answer3, false);
         this.ans4.addEventListener('click', this.answer4, false);
-        this.resetButton.addEventListener('click', this.resetGame, false);
+        this.resetButton.addEventListener('click', this.ifWantReset, false);
+        this.navBtn.addEventListener('click', this.ifWantReset, false);
 
         this.hintCont.addEventListener('click', this.showHint.bind(this), false);
     }
@@ -117,9 +118,17 @@ export default class GameView extends View {
         this.failTemplate();
     }
 
+    ifWantReset = (event) => {
+        if (confirm('При переходе на страницу будут утеряны данные. Подтвердить действие?') === true) {
+            this.resetGame();
+        } else {
+            event.preventDefault()
+        }
+    };
+
     resetGame = () => {
         this.send(GameController, GameController.prototype.callReset);
-    }
+    };
 
     answer1 = () => {
         this.send(GameController, GameController.prototype.answer, 0);
@@ -139,12 +148,15 @@ export default class GameView extends View {
 
     removeListeners() {
         window.removeEventListener('load', this.renderer.resize, false);
-        window.removeEventListener('resize', this.renderer.resize, false);        this.ans1.removeEventListener('click', this.answer1, false);
+        window.removeEventListener('resize', this.renderer.resize, false);
+        this.ans1.removeEventListener('click', this.answer1, false);
         this.ans2.removeEventListener('click', this.answer2, false);
         this.ans3.removeEventListener('click', this.answer3, false);
         this.ans4.removeEventListener('click', this.answer4, false);
         this.hintCont.removeEventListener('click', this.showHint.bind(this), false);
         this.hintCont.removeEventListener('click', this.hideHint.bind(this), false);
+        this.resetButton.removeEventListener('click', this.ifWantReset, false);
+        this.navBtn.removeEventListener('click', this.ifWantReset, false);
     }
 
     unmount() {
