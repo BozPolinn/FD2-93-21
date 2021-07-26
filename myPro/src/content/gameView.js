@@ -8,8 +8,6 @@ import AnimatedCanvas from "../animation/animatedCanvas";
 import * as levels from "./levelContent";
 import Renderer from "../animation/renderer";
 
-const request = 5;
-
 export default class GameView extends View {
     constructor(application) {
         super(application, levelTemplate);

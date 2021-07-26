@@ -60,15 +60,19 @@ export default class Hero {
     currentStop() {
         this.currentAnimation.stop();
     }
-    //
-    // scale() {
+
+    // setScale() {
     //     this.initWidth = 800;
     //     this.scale = this.renderer.canvas.width / this.initWidth;
     // }
 
     draw() {
+        this.widthScale = (this.renderer.canvas.width / this.renderer.rescaler.ratio) / 800;
+        this.heightScale = (this.renderer.canvas.height / this.renderer.rescaler.ratio) / 150;
+        console.log(this.widthScale, this.heightScale)
+
         this.animationXStep = (this.renderer.canvas.width / this.renderer.rescaler.ratio) / (this.request + 2);
-        this.animationY = this.renderer.canvas.height / this.renderer.rescaler.ratio - 75;
+        this.animationY = (this.renderer.canvas.height / this.renderer.rescaler.ratio) - 75;
         this.currentAnimation.draw(this.animationXStep + this.animationXStep * this.right, this.animationY);
     }
 }
