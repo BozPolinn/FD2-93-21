@@ -24,18 +24,10 @@ export default class Background {
         const startCoordinateY = height;
 
         for (let i = 0; i < this.stepsNumber; i++) {
-            this.renderer.context.strokeStyle = '#a100f2';
-            this.renderer.context.lineWidth = 5;
-            this.renderer.context.beginPath();
-            this.renderer.context.moveTo((i * startCoordinateX), startCoordinateY);
-            this.renderer.context.lineTo(((i + 1) * startCoordinateX), startCoordinateY);
-            this.renderer.context.stroke();
-
             if (i === this.stepsNumber - 1) {
                 continue;
             }
-
-            this.renderer.context.fillStyle = '#a100f2';
+            this.renderer.context.fillStyle = '#d50065';
             this.renderer.context.beginPath();
             this.renderer.context.arc(((i + 1) * startCoordinateX), startCoordinateY, 5, 0, Math.PI*2, false)
             this.renderer.context.fill();

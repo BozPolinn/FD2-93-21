@@ -9,27 +9,17 @@ export default class Hero {
     constructor(renderer, request) {
         this.renderer = renderer;
         this.request = request;
+        this.correctHeight = 35;
 
-        this.idleWidth = 63;
-        this.idleHeight = 75;
-        this.idleCenter = 0.5;
+        this.idle = {width : 63, height: 75, center : 0.5};
+        this.walk = {width : 63, height: 75, center : 0.5};
+        this.jump = {width : 63, height: 75, center : 0.5};
+        this.dead = {width : 93, height: 75, center : 0.75};
 
-        this.walkWidth = 63;
-        this.walkHeight = 75;
-        this.walkCenter = 0.5;
-
-        this.jumpWidth = 63;
-        this.jumpHeight = 75;
-        this.jumpCenter = 0.5;
-
-        this.deadWidth = 100;
-        this.deadHeight = 80;
-        this.deadCenter = 0.75;
-
-        this.idleAnimation = new CyclicAnimation(this.renderer, new idleSprite(), this.idleWidth, this.idleHeight, this.idleCenter);
-        this.walkAnimation = new CyclicAnimation(this.renderer, new walkSprite(), this.walkWidth, this.walkHeight, this.walkCenter);
-        this.jumpAnimation = new CyclicAnimation(this.renderer, new jumpSprite(), this.jumpWidth, this.jumpHeight, this.jumpCenter);
-        this.deadAnimation = new LinearAnimation(this.renderer, new deadSprite(), this.deadWidth, this.deadHeight, this.deadCenter);
+        this.idleAnimation = new CyclicAnimation(this.renderer, new idleSprite(), this.idle.width, this.idle.height, this.idle.center);
+        this.walkAnimation = new CyclicAnimation(this.renderer, new walkSprite(), this.walk.width, this.walk.height, this.walk.center);
+        this.jumpAnimation = new CyclicAnimation(this.renderer, new jumpSprite(), this.jump.width, this.jump.height, this.jump.center);
+        this.deadAnimation = new LinearAnimation(this.renderer, new deadSprite(), this.dead.width, this.dead.height, this.dead.center);
         this.act();
     }
 
@@ -52,6 +42,10 @@ export default class Hero {
         }
     }
 
+    getScaleY() {
+        this.scaleY = (this.renderer.canvas.height / this.renderer.rescaler.ratio) / 150;
+    }
+
     currentStart() {
         this.act();
         this.currentAnimation.start();
@@ -61,18 +55,10 @@ export default class Hero {
         this.currentAnimation.stop();
     }
 
-    // setScale() {
-    //     this.initWidth = 800;
-    //     this.scale = this.renderer.canvas.width / this.initWidth;
-    // }
-
     draw() {
-        this.widthScale = (this.renderer.canvas.width / this.renderer.rescaler.ratio) / 800;
-        this.heightScale = (this.renderer.canvas.height / this.renderer.rescaler.ratio) / 150;
-        console.log(this.widthScale, this.heightScale)
-
+        this.getScaleY();
         this.animationXStep = (this.renderer.canvas.width / this.renderer.rescaler.ratio) / (this.request + 2);
-        this.animationY = (this.renderer.canvas.height / this.renderer.rescaler.ratio) - 75;
+        this.animationY = (this.renderer.canvas.height / this.renderer.rescaler.ratio) - this.currentAnimation.height * this.scaleY - this.correctHeight * this.scaleY;
         this.currentAnimation.draw(this.animationXStep + this.animationXStep * this.right, this.animationY);
     }
 }

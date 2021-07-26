@@ -5,26 +5,18 @@ import zombieAttackSprite from "./zombie/spriteZombieAtack";
 import zombieDeadSprite from "./zombie/spriteDeadZombie";
 
 export default class Zombie {
-    constructor(renderer, request, right, wrong) {
+    constructor(renderer, request) {
         this.renderer = renderer;
-
         this.request = request;
+        this.correctHeight = 35;
 
-        this.zIdleWidth = 68;
-        this.zIdleHeight = 75;
-        this.zIdleCenter = 0.5;
+        this.idle = {width : 68, height: 75, center : 0.5};
+        this.attack = {width : 63, height: 75, center : 0.5};
+        this.dead = {width : 93, height: 75, center : 0.5};
 
-        this.attackWidth = 63;
-        this.attackHeight = 75;
-        this.attackCenter = 0.5;
-
-        this.zDeadWidth = 100;
-        this.zDeadHeight = 80;
-        this.zDeadCenter = 0.5;
-
-        this.idleAnimation = new CyclicAnimation(this.renderer, new zombieIdleSprite(), this.zIdleWidth, this.zIdleHeight, this.zIdleCenter);
-        this.attackAnimation = new CyclicAnimation(this.renderer, new zombieAttackSprite(), this.attackWidth, this.attackHeight, this.attackCenter);
-        this.deadAnimation = new LinearAnimation(this.renderer, new zombieDeadSprite(), this.zDeadWidth, this.zDeadHeight, this.zDeadCenter);
+        this.idleAnimation = new CyclicAnimation(this.renderer, new zombieIdleSprite(), this.idle.width, this.idle.height, this.idle.center);
+        this.attackAnimation = new CyclicAnimation(this.renderer, new zombieAttackSprite(), this.attack.width, this.attack.height, this.attack.center);
+        this.deadAnimation = new LinearAnimation(this.renderer, new zombieDeadSprite(), this.dead.width, this.dead.height, this.dead.center);
         this.act();
     }
 
@@ -39,11 +31,14 @@ export default class Zombie {
         if (this.right - 1 === this.wrong) {
             this.currentAnimation = this.attackAnimation;
         } else if (this.right === this.request) {
-            this.attackCenter = 0.2;
             this.currentAnimation = this.deadAnimation;
         } else {
             this.currentAnimation = this.idleAnimation;
         }
+    }
+
+    getScaleY() {
+        this.scaleY = (this.renderer.canvas.height / this.renderer.rescaler.ratio) / 150;
     }
 
     currentStart() {
@@ -56,8 +51,9 @@ export default class Zombie {
     }
 
     draw() {
+        this.getScaleY();
         this.animationXStep = (this.renderer.canvas.width / this.renderer.rescaler.ratio) / (this.request + 2);
-        this.animationY = this.renderer.canvas.height / this.renderer.rescaler.ratio - 75;
+        this.animationY = this.renderer.canvas.height / this.renderer.rescaler.ratio - this.currentAnimation.height * this.scaleY - this.correctHeight * this.scaleY;
         this.currentAnimation.draw(this.animationXStep + this.animationXStep * this.wrong, this.animationY);
     }
 }

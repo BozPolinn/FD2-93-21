@@ -68,7 +68,6 @@ export default class GameView extends View {
         this.hintCont.addEventListener('click', this.showHint.bind(this), false);
     }
 
-
     update() {
         super.update();
         this.animationContent.update();

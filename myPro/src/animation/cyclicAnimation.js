@@ -12,8 +12,15 @@ export default class CyclicAnimation {
         this.timerID = setInterval(this.increaseIndex.bind(this), 1000/24);
     }
 
+    getScale() {
+        this.scaleX = (this.renderer.canvas.width / this.renderer.rescaler.ratio) / 800;
+        this.scaleY = (this.renderer.canvas.height / this.renderer.rescaler.ratio) / 150;
+    }
+
     draw(x, y) {
-        this.renderer.context.drawImage(this.sprite.get(this.cyclicIndex), x - this.center * this.width, y, this.width, this.height);
+        this.getScale();
+        this.renderer.context.drawImage(this.sprite.get(this.cyclicIndex), x - this.center * this.width * this.scaleX,
+            y, this.width * this.scaleX, this.height * this.scaleY);
     }
 
     stop() {

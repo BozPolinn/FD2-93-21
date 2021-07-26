@@ -33,7 +33,6 @@ export default class AnimatedCanvas {
             this.failState.createFail();
         } else if (this.state === 'win') {
             this.winState.createWin();
-            console.log('win')
         }
         this.frameID = window.requestAnimationFrame(this.loader);
     };
