@@ -5,6 +5,7 @@ import SettingsView from "../settings/settingsView";
 import GameView from "../content/gameView";
 import FailView from "../content/failView";
 import WinView from "../content/winView";
+import Sound from "../play/sound";
 
 export default class Application {
     constructor(root) {
@@ -21,6 +22,7 @@ export default class Application {
             "#/fail": new FailView(this),
             "#/win": new WinView(this)
         };
+        this.sound = new Sound(this);
     }
 
     start() {
@@ -50,6 +52,4 @@ export default class Application {
             window.location.hash = this.defaultRoute;
         }
     }
-
-    // addListeners removeListeners
 }

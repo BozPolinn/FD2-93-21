@@ -1,12 +1,9 @@
 import Controller from "../core/controller";
-import GameView from "./gameView";
-import Application from "../core/application";
-import failTemplate from "../play/fail.html";
-import winTemplate from "../play/win.html";
 
 export default class GameController extends Controller {
     constructor(application) {
         super(application);
+        this.sound = this.application.sound;
     }
 
     answer(index) {
@@ -14,8 +11,10 @@ export default class GameController extends Controller {
         const question = level.getCurrentQuestion();
         if (question.answers[index].state) {
             level.right();
+            this.sound.right();
         } else {
             level.wrong();
+            this.sound.wrong();
         }
     }
 
