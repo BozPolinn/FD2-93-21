@@ -3,7 +3,7 @@
   <div id="hideMenu">Скрыть</div>
   <nav class="navigation" id="navig">
     <a href="#/" id="confirmGo">На главную</a>
-    <a href="#/" id="resetBtn">Новая игра</a>
+    <a href="#/game" id="resetBtn">Новая игра</a>
   </nav>
   <div class="description play">
     <canvas id="animation" width="800" height="150"></canvas>
@@ -51,6 +51,20 @@
         <button class="answer" id="ans4"></button>
       </div>
     </div>
+  </div>
+</div>
+<div id="getName">
+  <div id="askName">
+    <div>Введите Ваше имя:</div>
+    <div id="addedInfo">
+      Если имя не введено, оно будет присвоено автоматически.
+      <hr/>
+      Если имя введено ранее и Вы не хотите менять его, нажмите Enter либо ОК, не заполняя поле.
+    </div>
+  </div>
+  <div id="enterName">
+    <input type="text" id="userName" autocomplete="off">
+    <button id="sendName">ok</button>
   </div>
 </div>
 

@@ -59,6 +59,19 @@
     font-size: $fontSizeMini;
     margin: 2px;
   }
+
+  #enterName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  #userName {
+    width: 200px;
+    margin: 0 0 30px 0;
+  }
 }
 
 @media all and (max-width: 360px) {

@@ -33,7 +33,7 @@ export default class Game {
 
     getScore() {
         this.generalScore = this.levels[this.currentLevelIndex].levelscore + this.previousLevelScore;
-        return this.generalScore;
+        return Math.max(0, this.generalScore);
     }
 
     getState() {

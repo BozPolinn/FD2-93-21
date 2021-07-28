@@ -2,7 +2,6 @@ import levelTemplate from "../play/play.html";
 import View from "../core/view";
 import GameController from "./gameController";
 import AnimatedCanvas from "../animation/animatedCanvas";
-import * as levels from "./levelContent";
 import Renderer from "../animation/renderer";
 
 export default class GameView extends View {
@@ -13,6 +12,30 @@ export default class GameView extends View {
 
     mount() {
         super.mount();
+        this.application.root.classList.add('showGetName');
+
+        this.inputName = document.getElementById('userName');
+        this.inputName.setAttribute('placeholder', this.application.state.playerName);
+        console.log(this.application.state)
+        this.getNameBtn = document.getElementById('sendName');
+
+        this.getNameBtn.addEventListener('click', () => {
+            this.name = this.inputName.value;
+            this.sendName();
+            this.application.root.classList.remove('showGetName');
+            this.application.root.classList.add('hideGetName');
+        }, false);
+
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.name = this.inputName.value;
+                this.sendName();
+                this.application.root.classList.remove('showGetName');
+                this.application.root.classList.add('hideGetName');
+            }
+            this.removeEnterListener();
+        }, false);
+
         const canvas = document.getElementById('animation');
         this.renderer = new Renderer(canvas);
 
@@ -46,7 +69,6 @@ export default class GameView extends View {
         this.ans3 = this.application.root.querySelector('#ans3');
         this.ans4 = this.application.root.querySelector('#ans4');
         this.hidden = this.application.root.querySelector('.hintText');
-
 
         this.ans1.addEventListener('click', this.answer1, false);
         this.ans2.addEventListener('click', this.answer2, false);
@@ -102,6 +124,10 @@ export default class GameView extends View {
         }
     }
 
+    sendName = () => {
+        this.send(GameController, GameController.prototype.sendName, this.name);
+    }
+
     winTemplate = () => {
         this.send(GameController, GameController.prototype.updateWin);
     }
@@ -119,7 +145,7 @@ export default class GameView extends View {
     }
 
     ifWantReset = (event) => {
-        if (confirm('При переходе на страницу будут утеряны данные. Подтвердить действие?') === true) {
+        if (confirm('При переходе на страницу будут утеряны текущие данные. Подтвердить действие?') === true) {
             this.resetGame();
         } else {
             event.preventDefault()
@@ -146,6 +172,17 @@ export default class GameView extends View {
         this.send(GameController, GameController.prototype.answer, 3);
     };
 
+    removeEnterListener() {
+        document.removeEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.name = this.inputName.value;
+                this.sendName();
+                this.application.root.classList.remove('showGetName');
+                this.application.root.classList.add('hideGetName');
+            }
+        }, false);
+    }
+
     removeListeners() {
         window.removeEventListener('load', this.renderer.resize, false);
         window.removeEventListener('resize', this.renderer.resize, false);
@@ -157,9 +194,17 @@ export default class GameView extends View {
         this.hintCont.removeEventListener('click', this.hideHint.bind(this), false);
         this.resetButton.removeEventListener('click', this.ifWantReset, false);
         this.navBtn.removeEventListener('click', this.ifWantReset, false);
+        this.getNameBtn.removeEventListener('click', () => {
+            this.name = this.inputName.value;
+            this.sendName();
+            this.application.root.classList.remove('showGetName');
+            this.application.root.classList.add('hideGetName');
+        }, false);
     }
 
     unmount() {
+        this.application.root.classList.remove('hideGetName');
+        this.application.root.classList.add('showGetName');
         this.animationContent.unmount();
         clearTimeout(this.timerID);
         this.removeListeners();

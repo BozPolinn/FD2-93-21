@@ -9,7 +9,8 @@ export default class FailView extends View {
 
     mount() {
         super.mount();
-        document.getElementById('generalCount').innerHTML = this.application.state.game.getScore() + 1;
+        document.getElementById('namePlace').innerHTML = this.application.state.playerName;
+        document.getElementById('generalCount').innerHTML = this.application.state.game.getScore();
         this.resetGame();
     }
 

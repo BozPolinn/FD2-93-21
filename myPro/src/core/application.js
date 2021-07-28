@@ -5,6 +5,7 @@ import SettingsView from "../settings/settingsView";
 import GameView from "../content/gameView";
 import FailView from "../content/failView";
 import WinView from "../content/winView";
+import ProgressView from "../progress/progressView";
 import Sound from "../play/sound";
 
 export default class Application {
@@ -17,8 +18,7 @@ export default class Application {
             "#/" : new View(this, homePage),
             "#/game": new GameView(this),
             "#/settings": new SettingsView(this),
-            "#/progress": undefined,
-            "#/share": undefined,
+            "#/progress": new ProgressView(this),
             "#/fail": new FailView(this),
             "#/win": new WinView(this)
         };
