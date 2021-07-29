@@ -7,7 +7,7 @@ import FailView from "../content/failView";
 import WinView from "../content/winView";
 import ProgressView from "../progress/progressView";
 import Sound from "../play/sound";
-import Storage from "../settings/storage";
+import Storage from "../storage/storage";
 
 export default class Application {
     constructor(root) {
