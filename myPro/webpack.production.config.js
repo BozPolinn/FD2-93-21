@@ -4,21 +4,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
-    devServer: {
-        historyApiFallback: true,
-        contentBase: path.resolve(__dirname, './dist'),
-        open: true,
-        compress: true,
-        hot: true,
-        port: 8080,
-        host: '0.0.0.0'
-    },
     // input
     entry: {
         main: path.resolve(__dirname, './src/index.js'),
     },
-    mode: "development",
-    devtool: 'source-map',
+    mode: "production",
     // output
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -27,13 +17,10 @@ module.exports = {
     // plugins
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'webpack Boilerplate',
             template: path.resolve(__dirname, './src/index.html'), // шаблон
             filename: 'index.html', // название выходного файла
         }),
         new CleanWebpackPlugin(),
-        // применять изменения только при горячей перезагрузке
-        new webpack.HotModuleReplacementPlugin(),
     ],
     module: {
         rules: [

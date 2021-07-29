@@ -58,8 +58,6 @@ export default class GameView extends View {
         this.rightCount = this.application.root.querySelector('#rightAns');
         this.wrongCount = this.application.root.querySelector('#wrongAns');
         this.generalCount = this.application.root.querySelector('#general');
-        this.resetButton = this.application.root.querySelector('#resetBtn');
-        this.navBtn = document.getElementById('confirmGo');
 
         this.hintCont = document.getElementById('hintCont');
 
@@ -74,8 +72,6 @@ export default class GameView extends View {
         this.ans2.addEventListener('click', this.answer2, false);
         this.ans3.addEventListener('click', this.answer3, false);
         this.ans4.addEventListener('click', this.answer4, false);
-        this.resetButton.addEventListener('click', this.ifWantReset, false);
-        this.navBtn.addEventListener('click', this.ifWantReset, false);
         window.addEventListener('popstate', this.ifWantReset, false);
         this.hintCont.addEventListener('click', this.showHint.bind(this), false);
     }
@@ -192,8 +188,6 @@ export default class GameView extends View {
         this.ans4.removeEventListener('click', this.answer4, false);
         this.hintCont.removeEventListener('click', this.showHint.bind(this), false);
         this.hintCont.removeEventListener('click', this.hideHint.bind(this), false);
-        this.resetButton.removeEventListener('click', this.ifWantReset, false);
-        this.navBtn.removeEventListener('click', this.ifWantReset, false);
         this.getNameBtn.removeEventListener('click', () => {
             this.name = this.inputName.value;
             this.sendName();

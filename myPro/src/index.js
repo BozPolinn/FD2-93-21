@@ -1,3 +1,4 @@
+import "core-js/es";
 import "./styles/main.scss";
 import '@fortawesome/fontawesome-free/js/all.js';
 import Application from "./core/application";

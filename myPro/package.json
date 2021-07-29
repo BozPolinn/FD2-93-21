@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve",
-    "build": "webpack"
+    "start": "webpack serve -c webpack.development.config.js",
+    "build": "webpack -c webpack.production.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "core-js": "^3.15.2",
     "fantasy-name-generator": "^2.0.0",
     "firebase": "^8.8.0"
   }
