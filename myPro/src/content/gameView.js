@@ -16,7 +16,6 @@ export default class GameView extends View {
 
         this.inputName = document.getElementById('userName');
         this.inputName.setAttribute('placeholder', this.application.state.playerName);
-        console.log(this.application.state)
         this.getNameBtn = document.getElementById('sendName');
 
         this.getNameBtn.addEventListener('click', () => {

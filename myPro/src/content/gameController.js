@@ -20,16 +20,20 @@ export default class GameController extends Controller {
 
     updateWin() {
         window.location.hash = "#/win";
-    //    сохранение score
     }
 
     updateFail() {
         window.location.hash = "#/fail";
-        //    сохранение score
     }
 
     callReset() {
         this.application.state.game.reset();
+    }
+
+    callSaveMethod() {
+        const name = this.application.state.playerName;
+        const score = this.application.state.game.getScore();
+        this.application.storage.saveScore(name, score);
     }
 
     sendName(name) {

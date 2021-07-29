@@ -11,7 +11,12 @@ export default class WinView extends View {
         super.mount();
         document.getElementById('namePlace').innerHTML = this.application.state.playerName;
         document.getElementById('generalCount').innerHTML = this.application.state.game.getScore();
+        this.saveResultOfGame();
         this.resetGame();
+    }
+
+    saveResultOfGame = () => {
+        this.send(GameController, GameController.prototype.callSaveMethod);
     }
 
     resetGame = () => {
