@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     // input
@@ -9,6 +9,10 @@ module.exports = {
         main: path.resolve(__dirname, './src/index.js'),
     },
     mode: "production",
+    devtool: 'source-map',
+    optimization: {
+        minimize: true
+    },
     // output
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -21,6 +25,7 @@ module.exports = {
             filename: 'index.html', // название выходного файла
         }),
         new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin()
     ],
     module: {
         rules: [
@@ -39,7 +44,7 @@ module.exports = {
             {
                 test: /\.(scss|css)$/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
