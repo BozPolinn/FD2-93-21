@@ -23,6 +23,7 @@ export default class GameView extends View {
             this.sendName();
             this.application.root.classList.remove('showGetName');
             this.application.root.classList.add('hideGetName');
+
         }, false);
 
         document.addEventListener('keypress', (e) => {
@@ -75,7 +76,7 @@ export default class GameView extends View {
         this.ans4.addEventListener('click', this.answer4, false);
         this.resetButton.addEventListener('click', this.ifWantReset, false);
         this.navBtn.addEventListener('click', this.ifWantReset, false);
-
+        window.addEventListener('popstate', this.ifWantReset, false);
         this.hintCont.addEventListener('click', this.showHint.bind(this), false);
     }
 
@@ -199,6 +200,7 @@ export default class GameView extends View {
             this.application.root.classList.remove('showGetName');
             this.application.root.classList.add('hideGetName');
         }, false);
+        window.removeEventListener('popstate', this.ifWantReset, false);
     }
 
     unmount() {

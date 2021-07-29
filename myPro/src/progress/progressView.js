@@ -31,6 +31,7 @@ export default class ProgressView extends View {
 
                 container.appendChild(row);
             }
+            document.getElementById('loadingWait').classList.add('hide');
             parent.appendChild(container);
         }
 
